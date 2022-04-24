@@ -1,0 +1,170 @@
+:root {
+    /* CSS HEX */
+--snow: #faf7f9ff;
+--lavender-blush: #f3e8eeff;
+--queen-pink: #ebd9e3ff;
+--thistle: #dcbcceff;
+--pink-lavender: #d2a8beff;
+--opera-mauve: #c082a4ff;
+--mulberry: #ad5c89ff;
+--twilight-lavender: #88446aff;
+}
+
+
+@font-face {
+    font-family: 'Barlow';
+    src: url(../fonts/Barlow-Light.ttf);
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Barlow';
+    src: url(../fonts/Barlow-Thin.ttf);
+    font-weight: 100;
+}
+@font-face {
+    font-family: 'Barlow';
+    src: url(../fonts/Barlow-Medium.ttf);
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'Barlow';
+    src: url(../fonts/Barlow-Regular.ttf);
+    font-weight: 400;
+}
+
+main {
+    background: linear-gradient(326deg, var(--lavender-blush), var(--opera-mauve));
+    background-size: 100% 300%;
+    display: flex;
+    justify-content: center;
+    border-bottom: solid 30px var(--twilight-lavender);
+}
+.main-div {
+    display: flex;
+    justify-content: center;
+}
+.article-velas-soja {
+    background: var(--thistle);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin-bottom: 5vw;
+    padding: 3vw 0vw 5vw 0;
+    row-gap: 5vw;
+}
+.ctn-img-vela {
+    width: 50%;
+    height: 25vw;
+    overflow: hidden;
+    border-radius: 45%;
+    box-shadow: 10px 9px 10px grey;
+}
+.ctn-texto {
+    color: var(--twilight-lavender);
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    
+}
+.txt-velas-soja {
+    width: 100%;
+}
+h2.txt-velas-soja {
+    text-align: center;
+    margin: 2vw 0;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 3px var(--opera-mauve);
+}
+h3.txt-velas-soja {
+    text-align: center;
+    margin: 4vw 0 2vw;
+    font-size: 2em;
+    text-shadow: 2px 2px 3px var(--opera-mauve);
+}
+p.txt-velas-soja {
+    text-indent: 20px;
+    line-height: 4vh;
+    font-size: 1.2em;
+    text-align: justify;
+    margin-bottom: 1vw;
+}
+p.txt-velas-soja::first-letter {
+    font-size: larger;
+}
+
+/* ****************** Difusores de Varillas ****************************** */
+ul.txt-velas-soja {
+    list-style:outside;
+    line-height: 4vh;
+    font-size: 1.1em;
+    font-style: italic;
+    text-align: justify;
+    margin-bottom: 1vw;
+    
+}
+ul.txt-velas-soja li {
+    width: 80%;
+    margin: 2vh auto;
+}
+
+/* ********************* Key Frames **************************************** */
+
+@keyframes fadeIn{
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  @keyframes text-blur-in {
+    0% {
+      filter: blur(12px) opacity(0%);
+    }
+    100% {
+      filter: blur(.01);
+    }
+  }
+  
+
+.fade-in {
+  animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 4s backwards;
+  -webkit-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 4s backwards;
+  -moz-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 4s backwards;
+  -o-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 4s backwards;
+  -ms-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 4s backwards;
+}
+.fade-in-img {
+  animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 5s 1s backwards;
+  -webkit-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 5s 1s backwards;
+  -moz-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 5s 1s backwards;
+  -o-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 5s 1s backwards;
+  -ms-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 5s 1s backwards;
+}
+.text-blur-in {
+    animation: text-blur-in cubic-bezier(0, 0, 0.33, 1.01) 2.4s backwards;
+    -webkit-animation: text-blur-in cubic-bezier(0, 0, 0.33, 1.01) 2.4s 1.5s  backwards;
+    -moz-animation: text-blur-in cubic-bezier(0, 0, 0.33, 1.01) 2.4s 1.5s backwards;
+    -o-animation: text-blur-in cubic-bezier(0, 0, 0.33, 1.01) 2.4s 1.5s backwards;
+    -ms-animation: text-blur-in cubic-bezier(0, 0, 0.33, 1.01) 2.4s 1.5s backwards;
+} 
+/* *************************** Media Queries ********************************************* */  
+@media screen and (min-width:521px) and (max-width:1080px) {
+    ul.txt-velas-soja li {
+        width: 95%;
+        font-size: 1.7em;
+
+    }
+    .ctn-img-vela {
+        width: 70%;
+        height: 40vw;
+    }
+    p.txt-velas-soja {
+        font-size: 1.8em;
+
+    }
+}
