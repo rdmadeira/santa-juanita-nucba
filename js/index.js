@@ -62,8 +62,8 @@ function setForm() {
     var data = [name.value, apellido.value, tel.value, email.value]
     console.log(data);
 }
-
 showSlides();
+showLogin();
 }
 let slideIndex = 0;
 
@@ -79,4 +79,18 @@ function showSlides() {
   }
   slides[slideIndex-1].style.display = "block";
   setTimeout(showSlides, 10000); // Change image every 10 seconds
+}
+
+function showLogin() {
+    document.getElementById('sign-up-in').addEventListener('click', showLogin);
+    var logInSection = document.getElementById('section-login');
+    var displayLogIn = logInSection.style.display;
+    if (displayLogIn == 'none'){
+        logInSection.style.display = 'flex';    
+    } else if (displayLogIn == 'flex'){
+        logInSection.style.display ='none';
+    } else {
+        logInSection.style.display ='none';
+    }
+
 }
