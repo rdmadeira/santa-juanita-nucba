@@ -5,7 +5,6 @@ window.onload = function (){
     function showContactoInputs() {
         var sectionContacto = document.getElementById('contactos');
         var visibility = sectionContacto.style.visibility; 
-          
     if (visibility =='hidden') {
             sectionContacto.style.visibility = 'visible';
             sectionContacto.style.opacity = 1;
@@ -92,5 +91,20 @@ function showLogin() {
     } else {
         logInSection.style.display ='none';
     }
-
 }
+/* function showLogin() {
+    document.getElementById('sign-up-in').addEventListener('click', () => {
+        var sectionLogin = document.getElementById('section-login');
+        if (sectionLogin.classList.contains('none-display')){
+            sectionLogin.classList.remove('bounce-out-top');
+            sectionLogin.classList.remove('none-display');
+            sectionLogin.classList.add('bounce-in-top');
+        } else { 
+            sectionLogin.classList.remove('bounce-in-top');
+            sectionLogin.classList.add('bounce-out-top');
+            sectionLogin.addEventListener('transitionend', () => {document.getElementById('section-login').classList.add('none-display');},{capture: false, once: true, passive: false})
+            
+        }    
+    }, false);
+    
+} */
