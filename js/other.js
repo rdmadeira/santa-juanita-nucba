@@ -1,4 +1,4 @@
-window.onload = function (){
+window.onload = function () {
     var sectionContacto = document.getElementById('contactos');
     
     document.getElementById('click-contacto').addEventListener('click', showContactoInputs);
@@ -48,23 +48,25 @@ window.onload = function (){
             menuVertical.style.visibility = 'visible';
             menuVertical.style.opacity = 1;
         }
-}
+    }
 
 
-var btnEnviar = document.getElementById('buton-enviar');
-btnEnviar.addEventListener('click',setForm);
-function setForm() {
-    var name = document.formContacto.Nombre;
-    var apellido = document.formContacto.Apellido;
-    var tel = document.formContacto.Telefono;
-    var email = document.formContacto.email;
-    var data = [name.value, apellido.value, tel.value, email.value]
-    console.log(data);
-}
+    var btnEnviar = document.getElementById('buton-enviar');
+    btnEnviar.addEventListener('click',setForm);
+    function setForm() {
+        var name = document.formContacto.Nombre;
+        var apellido = document.formContacto.Apellido;
+        var tel = document.formContacto.Telefono;
+        var email = document.formContacto.email;
+        var data = [name.value, apellido.value, tel.value, email.value]
+        console.log(data);
+    }
 
 
-document.getElementById('sign-up-in').addEventListener('click', showLogin);
-function showLogin () {
+
+
+    document.getElementById('sign-up-in').addEventListener('click', showLogin);
+    function showLogin () {
     let sectionLogin = document.getElementById('section-login');
     if (sectionLogin.classList.contains('none-display' && 'bounce-out-top')) {
         sectionLogin.classList.toggle('none-display');
@@ -81,7 +83,3 @@ function showLogin () {
     }
 }
 }
-
-
-
-

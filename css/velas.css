@@ -32,17 +32,12 @@
     font-weight: 400;
 }
 
-main {
-    background: linear-gradient(326deg, var(--lavender-blush), var(--opera-mauve));
-    background-size: 100% 300%;
-    display: flex;
-    justify-content: center;
-    border-bottom: solid 30px var(--twilight-lavender);
-}
 .main-div {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
+
 .article-velas-soja {
     background: var(--thistle);
     display: flex;
@@ -163,8 +158,5 @@ ul.txt-velas-soja li {
         width: 70%;
         height: 40vw;
     }
-    p.txt-velas-soja {
-        font-size: 1.8em;
-
-    }
+    
 }

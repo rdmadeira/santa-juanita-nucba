@@ -184,6 +184,8 @@ li.submenu-li-productos:hover>a {
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
+    border-bottom: solid 30px var(--twilight-lavender);
+    border-top: solid 30px var(--mulberry);
     /* background: linear-gradient(326deg, var(--lavender-blush), var(--opera-mauve));
     overflow-x: hidden;
     background-size: 100% 300%; */
