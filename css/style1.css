@@ -184,9 +184,10 @@ li.submenu-li-productos:hover>a {
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-start;
-    background: linear-gradient(326deg, var(--lavender-blush), var(--opera-mauve));
+    /* background: linear-gradient(326deg, var(--lavender-blush), var(--opera-mauve));
     overflow-x: hidden;
-    background-size: 100% 300%;
+    background-size: 100% 300%; */
+    background: #00000054;
 }
 .div-main {
     width: 100%;
@@ -204,7 +205,6 @@ li.submenu-li-productos:hover>a {
     align-items: center;
     justify-content: center;
     padding: 3vw;
-    transition: all 1.5s ease forwards;
 }
 .section-login form {
     display:flex;
@@ -247,6 +247,10 @@ li.submenu-li-productos:hover>a {
 }
 .g-f-a-div {
     row-gap: 0.5vw;
+}
+.form-div>p>a {
+    color: #542aff;
+    font-weight: 500;
 }
 .form-div__div>a {
     display: flex;

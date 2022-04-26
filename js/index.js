@@ -61,9 +61,12 @@ function setForm() {
     var data = [name.value, apellido.value, tel.value, email.value]
     console.log(data);
 }
+
 showSlides();
-showLogin();
+document.getElementById('sign-up-in').addEventListener('click', showLogin);
 }
+
+
 let slideIndex = 0;
 
 function showSlides() {
@@ -80,7 +83,7 @@ function showSlides() {
   setTimeout(showSlides, 10000); // Change image every 10 seconds
 }
 
-function showLogin() {
+/* function showLogin() {
     document.getElementById('sign-up-in').addEventListener('click', showLogin);
     var logInSection = document.getElementById('section-login');
     var displayLogIn = logInSection.style.display;
@@ -91,7 +94,7 @@ function showLogin() {
     } else {
         logInSection.style.display ='none';
     }
-}
+} */
 /* function showLogin() {
     document.getElementById('sign-up-in').addEventListener('click', () => {
         var sectionLogin = document.getElementById('section-login');
@@ -108,3 +111,19 @@ function showLogin() {
     }, false);
     
 } */
+function showLogin () {
+    let sectionLogin = document.getElementById('section-login');
+    if (sectionLogin.classList.contains('none-display' && 'bounce-out-top')) {
+        sectionLogin.classList.toggle('none-display');
+        sectionLogin.classList.toggle('bounce-in-top');
+        sectionLogin.classList.toggle('bounce-out-top');
+    } else {
+        sectionLogin.classList.toggle('bounce-in-top');
+        sectionLogin.classList.toggle('bounce-out-top');
+        sectionLogin.addEventListener('animationend', 
+        () => {
+            sectionLogin.classList.add('none-display');
+        }, 
+        {once: true});
+    }
+}
