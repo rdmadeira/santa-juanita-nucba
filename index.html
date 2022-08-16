@@ -44,11 +44,13 @@
     <main class="main gradient">
         <div class="div-main fade-in-blur-first">
             <section class="section-login bounce-out-top none-display" id="section-login">
-                <form action="">
+                <form action="" method="post" id="form-sign-in-up">
                     <div class="form-div ctn-email">
-                        <h3>CONECTESE O CREATE UNA CUENTA</h3>
-                        <label for="email-2">Email</label>
-                        <input type="email" name="email" id="email-2">
+                        <h3>INGRESÁ O CREÁ SU CUENTA</h3>
+                        <label for="sign-in-input-email">Email</label>
+                        <input type="email" name="email" id="sign-in-input-email">
+                        <label for="sign-in-input-password">Password</label>
+                        <input type="password" name="password" id="sign-in-input-password">
                         <button type="submit" id="btn-mail-submit">SEGUIR</button>
                     </div>
                     <div class="form-div">
@@ -74,18 +76,18 @@
                 <button class="btn-cerrar" id="btn-cerrar" > X </button>
                 <div class="form">
                     <h2>Dejanos un mensaje!</h2>
-                    <form action="./data/process.asp" name="formContacto" target="_blank" method="get">
+                    <form action="./data/process.asp" name="formContacto" target="_blank" method="get" id="form-contacto">
                         <input class="input-contacto"type="text" name="Nombre" id="nombre" placeholder="Nombre"/>
                         <input class="input-contacto"type="text" name="Apellido" id="apellido" placeholder="Apellido"/>
                         <input class="input-contacto"type="number" name="Telefono" id="telefono" placeholder="Teléfono"/>
                         <input class="input-contacto"type="email" name="email" id="email" placeholder="Correo Electronico"/>
                         <textarea name="mensaje" id="mensaje" cols="30" rows="8" placeholder="Deje Aqui tu Mensaje"></textarea>
+                        <div class="logo-contacto">
+                            <img src="./assets/Contacts_29936.png" alt="logo-contacto-agenda">
+                            <button type="submit" id="buton-enviar">ENVIAR</button>
+                            
+                        </div>
                     </form>
-                </div>
-                <div class="logo-contacto">
-                    <img src="./assets/Contacts_29936.png" alt="logo-contacto-agenda">
-                    <button type="submit" id="buton-enviar">ENVIAR</button>
-                    
                 </div>
             </section>
             <section class="sec0">

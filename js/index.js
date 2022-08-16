@@ -51,20 +51,21 @@ window.onload = function (){
 }
 
 
-var btnEnviar = document.getElementById('buton-enviar');
-btnEnviar.addEventListener('click',setForm);
+let btnEnviar = document.getElementById('form-contacto');
+btnEnviar.addEventListener('submit', () => setForm());
 function setForm() {
-    var name = document.formContacto.Nombre;
-    var apellido = document.formContacto.Apellido;
-    var tel = document.formContacto.Telefono;
-    var email = document.formContacto.email;
-    var data = [name.value, apellido.value, tel.value, email.value]
+    let name = document.formContacto.Nombre;
+    let apellido = document.formContacto.Apellido;
+    let tel = document.formContacto.Telefono;
+    let email = document.formContacto.email;
+    let data = [name.value, apellido.value, tel.value, email.value]
     console.log(data);
 }
 
 
-document.getElementById('sign-up-in').addEventListener('click', showLogin);
-function showLogin () {
+document.getElementById('sign-up-in').addEventListener('click', (e) => showLogin(e));
+function showLogin (e) {
+    e.preventDefault();
     let sectionLogin = document.getElementById('section-login');
     if (sectionLogin.classList.contains('none-display' && 'bounce-out-top')) {
         sectionLogin.classList.toggle('none-display');
@@ -80,8 +81,80 @@ function showLogin () {
         {once: true});
     }
 }
-}
 
+let users = JSON.parse(localStorage.getItem('usersJuanita'));
+if (users === null) {
+    users = [];
+}
+const signInUpForm =  document.getElementById('form-sign-in-up');
+signInUpForm.addEventListener('submit', (e)=> loginUser(e), {once: true})
+function loginUser(e) {
+    e.preventDefault();
+    const email = signInUpForm.email.value;
+    const password = signInUpForm.password.value;
+    if (checkEmail(email)) {
+        let user = users[users.indexOf(item => item.email === email)];
+        if (user.email === email && user.password === password) {
+            localStorage.setItem('userJuanita', user);
+            return location.href = './pagina-user';
+        }
+        if (user.email !== email || user.password !== password) {
+            return alert('Invalid Data!');
+        }
+    }
+    if (!checkEmail(email)) {
+        addRegisterInputs();
+        signInUpForm.addEventListener('submit', (e) => registerNewUser(e));
+    }
+}
+function addRegisterInputs() {
+    let titleForm = document.querySelector('#form-sign-in-up h3');
+    titleForm.innerHTML = 'CREÁ SU CUENTA: ';
+    const newInputName = document.createElement('input');
+    const newInputLastname = document.createElement('input');
+    const newLabelName = document.createElement('label');
+    const newLabelLastname = document.createElement('label');
+    newLabelName.innerText = 'Name:';
+    newLabelLastname.innerText = 'Lastname:';
+    newInputName.setAttribute('type', 'text');
+    newInputName.setAttribute('name', 'name');
+    newInputLastname.setAttribute('type', 'text');
+    newInputLastname.setAttribute('name', 'lastname');
+    titleForm.insertAdjacentElement('afterend', newInputLastname);
+    titleForm.insertAdjacentElement('afterend', newInputName);
+    newInputLastname.insertAdjacentElement('beforebegin', newLabelLastname);
+    newInputName.insertAdjacentElement('beforebegin', newLabelName);
+}
+function registerNewUser(e) {
+    e.preventDefault();
+    const name = signInUpForm.name.value;
+    const lastname = signInUpForm.lastname.value;
+    const email = signInUpForm.email.value;
+    const password = signInUpForm.password.value;
+    class User {
+        constructor (name, lastname, email, password) {
+            this.name = name;
+            this.lastname = lastname;
+            this.email = email;
+            this.password = password;
+            this.myproducts = [];
+        }
+    }
+    console.log(name, lastname, email, password);
+    if (name !=='' && lastname !== '' && email !== '' && password !== '') {
+        const newUser =  new User (name, lastname, email, password);
+        users.push(newUser);
+        setUserAndUsers(users, newUser);
+    }
+}
+function setUserAndUsers(users, user) {
+    localStorage.setItem('usersJuanita', JSON.stringify(users));
+    localStorage.setItem('userJuanita', JSON.stringify(user));
+}
+function checkEmail(string) {
+    return (users.some( item => item.email === string))
+}
+}
 
 
 
