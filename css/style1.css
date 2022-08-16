@@ -272,6 +272,7 @@ li.submenu-li-productos:hover>a {
     width: 50%;
     row-gap: 2vw;
     text-align: center;
+    transition: all 0.5s ease;
 }
 .form-div {
     display: flex;

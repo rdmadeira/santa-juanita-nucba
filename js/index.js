@@ -78,7 +78,7 @@ function showLogin (e) {
         () => {
             sectionLogin.classList.add('none-display');
         }, 
-        {once: true});
+        );
     }
 }
 
@@ -87,43 +87,67 @@ if (users === null) {
     users = [];
 }
 const signInUpForm =  document.getElementById('form-sign-in-up');
-signInUpForm.addEventListener('submit', (e)=> loginUser(e), {once: true})
-function loginUser(e) {
+signInUpForm.addEventListener('submit', (e)=> verifyUser(e), {once: true})
+function verifyUser(e) {
     e.preventDefault();
     const email = signInUpForm.email.value;
-    const password = signInUpForm.password.value;
     if (checkEmail(email)) {
-        let user = users[users.indexOf(item => item.email === email)];
-        if (user.email === email && user.password === password) {
-            localStorage.setItem('userJuanita', user);
+        let user = users.find(item => item.email === email);
+        const newPasswordLabel = document.createElement('label');
+        const newPasswordInput = document.createElement('input');
+        const btnSubmit = document.getElementById('btn-mail-submit');
+        newPasswordLabel.innerText = 'Password';
+        newPasswordLabel.setAttribute('for', 'sign-in-input-password');
+        newPasswordInput.setAttribute('type', 'password');
+        newPasswordInput.setAttribute('id', 'sign-in-input-password');
+        newPasswordInput.setAttribute('name', 'password');
+        titleForm.innerText = 'Ingresá A Su Cuenta:'
+        btnSubmit.insertAdjacentElement("beforebegin", newPasswordLabel);
+        btnSubmit.insertAdjacentElement("beforebegin", newPasswordInput);
+        btnSubmit.innerHTML = 'Ingresá';
+        const password = signInUpForm.password.value;
+
+        /* if (user.email === email && user.password === password) {
+            localStorage.setItem('userJuanita', JSON.stringify(user));
             return location.href = './pagina-user';
         }
         if (user.email !== email || user.password !== password) {
             return alert('Invalid Data!');
-        }
+        } */
     }
     if (!checkEmail(email)) {
         addRegisterInputs();
         signInUpForm.addEventListener('submit', (e) => registerNewUser(e));
     }
 }
+let titleForm = document.querySelector('#form-sign-in-up h3');
 function addRegisterInputs() {
-    let titleForm = document.querySelector('#form-sign-in-up h3');
     titleForm.innerHTML = 'CREÁ SU CUENTA: ';
     const newInputName = document.createElement('input');
     const newInputLastname = document.createElement('input');
     const newLabelName = document.createElement('label');
     const newLabelLastname = document.createElement('label');
+    const newPasswordLabel = document.createElement('label');
+    const newPasswordInput = document.createElement('input');
+    const btnSubmit = document.getElementById('btn-mail-submit');
     newLabelName.innerText = 'Name:';
     newLabelLastname.innerText = 'Lastname:';
     newInputName.setAttribute('type', 'text');
     newInputName.setAttribute('name', 'name');
     newInputLastname.setAttribute('type', 'text');
     newInputLastname.setAttribute('name', 'lastname');
+    newPasswordLabel.innerText = 'Password';
+    newPasswordLabel.setAttribute('for', 'sign-in-input-password');
+    newPasswordInput.setAttribute('type', 'password');
+    newPasswordInput.setAttribute('id', 'sign-in-input-password');
+    newPasswordInput.setAttribute('name', 'password');
     titleForm.insertAdjacentElement('afterend', newInputLastname);
     titleForm.insertAdjacentElement('afterend', newInputName);
     newInputLastname.insertAdjacentElement('beforebegin', newLabelLastname);
     newInputName.insertAdjacentElement('beforebegin', newLabelName);
+    btnSubmit.insertAdjacentElement("beforebegin", newPasswordLabel);
+    btnSubmit.insertAdjacentElement("beforebegin", newPasswordInput);
+    btnSubmit.innerHTML = 'Registrá';
 }
 function registerNewUser(e) {
     e.preventDefault();
@@ -145,6 +169,8 @@ function registerNewUser(e) {
         const newUser =  new User (name, lastname, email, password);
         users.push(newUser);
         setUserAndUsers(users, newUser);
+        verifyUser();
+        //location.href = '#section-login';
     }
 }
 function setUserAndUsers(users, user) {
