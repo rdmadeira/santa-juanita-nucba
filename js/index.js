@@ -63,22 +63,26 @@ function setForm() {
 }
 
 
+/* ******************** Login/SignUp Section *********************** */
+
 document.getElementById('sign-up-in').addEventListener('click', (e) => showLogin(e));
 function showLogin (e) {
-    e.preventDefault();
+    //e.preventDefault();
     let sectionLogin = document.getElementById('section-login');
-    if (sectionLogin.classList.contains('none-display' && 'bounce-out-top')) {
-        sectionLogin.classList.toggle('none-display');
-        sectionLogin.classList.toggle('bounce-in-top');
-        sectionLogin.classList.toggle('bounce-out-top');
-    } else {
-        sectionLogin.classList.toggle('bounce-in-top');
-        sectionLogin.classList.toggle('bounce-out-top');
+    if (sectionLogin.classList.contains('none-display')) {
+        sectionLogin.classList.replace('none-display', 'bounce-in-top');
+        //sectionLogin.classList.add('bounce-in-top');
+        return console.log(sectionLogin.classList);
+        //sectionLogin.classList.toggle('slide-out-top');
+    } 
+    if (sectionLogin.classList.contains('bounce-in-top')) {
+        sectionLogin.classList.replace('bounce-in-top', 'slide-out-top');
         sectionLogin.addEventListener('animationend', 
         () => {
             sectionLogin.classList.add('none-display');
-        }, 
-        );
+            sectionLogin.classList.remove('slide-out-top');
+        }, {once:true});
+        return console.log(sectionLogin.classList);
     }
 }
 
@@ -86,40 +90,70 @@ let users = JSON.parse(localStorage.getItem('usersJuanita'));
 if (users === null) {
     users = [];
 }
+
 const signInUpForm =  document.getElementById('form-sign-in-up');
-signInUpForm.addEventListener('submit', (e)=> verifyUser(e), {once: true})
+const submitErrorSpam = document.querySelector('.submit-error');
+signInUpForm.addEventListener('submit', (e)=> verifyUser(e), {once: true});
 function verifyUser(e) {
     e.preventDefault();
     const email = signInUpForm.email.value;
     if (checkEmail(email)) {
         let user = users.find(item => item.email === email);
+        const spanVolver = document.createElement('span');
         const newPasswordLabel = document.createElement('label');
         const newPasswordInput = document.createElement('input');
         const btnSubmit = document.getElementById('btn-mail-submit');
-        newPasswordLabel.innerText = 'Password';
-        newPasswordLabel.setAttribute('for', 'sign-in-input-password');
-        newPasswordInput.setAttribute('type', 'password');
-        newPasswordInput.setAttribute('id', 'sign-in-input-password');
-        newPasswordInput.setAttribute('name', 'password');
-        titleForm.innerText = 'Ingresá A Su Cuenta:'
-        btnSubmit.insertAdjacentElement("beforebegin", newPasswordLabel);
-        btnSubmit.insertAdjacentElement("beforebegin", newPasswordInput);
-        btnSubmit.innerHTML = 'Ingresá';
-        const password = signInUpForm.password.value;
-
-        /* if (user.email === email && user.password === password) {
-            localStorage.setItem('userJuanita', JSON.stringify(user));
-            return location.href = './pagina-user';
+        createPasswordInput();
+        function createPasswordInput() {
+            spanVolver.classList.add('span-volver');
+            spanVolver.innerText = '<<';
+            signInUpForm.insertAdjacentElement('afterbegin', spanVolver);
+            newPasswordLabel.innerText = 'Password';
+            newPasswordLabel.setAttribute('for', 'sign-in-input-password');
+            newPasswordInput.setAttribute('type', 'password');
+            newPasswordInput.setAttribute('id', 'sign-in-input-password');
+            newPasswordInput.setAttribute('name', 'password');
+            signInUpForm.email.readOnly = true;
+            titleForm.innerText = 'Ingresá A Su Cuenta:'
+            btnSubmit.insertAdjacentElement("beforebegin", newPasswordLabel);
+            btnSubmit.insertAdjacentElement("beforebegin", newPasswordInput);
+            btnSubmit.innerHTML = 'Ingresá';
+            spanVolver.addEventListener('click', ()=> removePasswordInput());
+            signInUpForm.addEventListener('submit', (e)=>{
+                e.preventDefault();
+                let password = newPasswordInput.value;
+                // console.log(password);
+                if (user.email === email && user.password === password) {
+                    localStorage.setItem('userJuanita', JSON.stringify(user));
+                    return location.href = './pagina-user';
+                }
+                if (user.email !== email || user.password !== password) {
+                    submitErrorSpam.classList.add('visible');
+                    setTimeout( ()=>{
+                        submitErrorSpam.classList.remove('visible');
+                    }, 4000);
+                }
+            });
         }
-        if (user.email !== email || user.password !== password) {
-            return alert('Invalid Data!');
-        } */
+        function removePasswordInput() {
+            spanVolver.remove();
+            newPasswordLabel.remove();
+            newPasswordInput.remove();
+            btnSubmit.innerText = 'SIGUIENTE';
+            titleForm.innerText = 'INGRESÁ O CREÁ SU CUENTA'
+            signInUpForm.email.readOnly = false;
+            signInUpForm.addEventListener('submit', (e)=> verifyUser(e), {once: true});
+        }
+        
     }
+
     if (!checkEmail(email)) {
         addRegisterInputs();
         signInUpForm.addEventListener('submit', (e) => registerNewUser(e));
     }
 }
+
+
 let titleForm = document.querySelector('#form-sign-in-up h3');
 function addRegisterInputs() {
     titleForm.innerHTML = 'CREÁ SU CUENTA: ';
@@ -169,7 +203,7 @@ function registerNewUser(e) {
         const newUser =  new User (name, lastname, email, password);
         users.push(newUser);
         setUserAndUsers(users, newUser);
-        verifyUser();
+        //verifyUser();
         //location.href = '#section-login';
     }
 }
