@@ -271,12 +271,13 @@ li.submenu-li-productos:hover>a {
     top: 0px;
     left: 0px;
     padding: 2px 7px 7px;
-    border-radius: 50%;
+    border-radius: 5%;
     border: solid 1px var(--twilight-lavender);
     color: var(--twilight-lavender);
 }
 .span-volver:hover {
     cursor: pointer;
+    background-color: var(--lavender-blush);
 }
 .display-flex {
     display: flex;

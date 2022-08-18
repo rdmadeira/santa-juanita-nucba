@@ -95,30 +95,37 @@ if (users === null) {
 
 const verifyEmailForm = document.getElementById('verify-email-form');
 const signInForm =  document.getElementById('sign-in-form');
-const signInUpForm = document.getElementById('sign-up-form');
+const signUpForm = document.getElementById('sign-up-form');
 const submitErrorSpam = document.querySelector('.submit-error');
 verifyEmailForm.addEventListener('submit', (e)=> verifyUser(e));
 function verifyUser(e) {
     e.preventDefault();
     let email = verifyEmailForm.email.value;
-    const spanVolver = document.querySelector('.span-volver');
-    spanVolver.addEventListener('click', () => volverVerifyUser())
+    const spanVolver = document.querySelectorAll('.span-volver');
+    spanVolver.forEach(item => {
+        item.addEventListener('click', () => backVerifyUser(item));
+    });
     if (checkEmail(email)) {
+        showNext(signInForm);
+
+    } else {
+        showNext(signUpForm);
+        signUpForm.email.value = email;
+    }
+    function showNext(element) {
         verifyEmailForm.classList.contains('fade-in-left') && verifyEmailForm.classList.replace('fade-in-left', 'fade-out-left');
         !verifyEmailForm.classList.contains('fade-in-left') && verifyEmailForm.classList.add('fade-out-left');
         verifyEmailForm.addEventListener('animationend', ()=> {
             verifyEmailForm.classList.replace('display-flex', 'none-display');
-            signInForm.classList.replace('none-display', 'fade-in-right');
-            signInForm.classList.add('display-flex');
-        }, {once: true});
-
-    } else {
-
+            element.classList.replace('none-display', 'fade-in-right');
+            element.classList.add('display-flex');
+        }, {once: true});        
     }
-    function volverVerifyUser() {
-        signInForm.classList.replace('fade-in-right', 'fade-out-right');
-        signInForm.addEventListener('animationend', ()=> {
-            signInForm.classList.replace('display-flex', 'none-display');
+    function backVerifyUser(item) {
+        item.parentNode.classList.replace('fade-in-right', 'fade-out-right');
+        item.parentNode.addEventListener('animationend', ()=> {
+            item.parentNode.classList.replace('display-flex', 'none-display');
+            item.parentNode.classList.remove('fade-out-right');
             verifyEmailForm.classList.replace('none-display', 'display-flex');
             verifyEmailForm.classList.replace('fade-out-left', 'fade-in-left');
         }, {once: true});
