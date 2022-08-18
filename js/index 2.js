@@ -63,11 +63,10 @@ function setForm() {
 }
 
 
-/* ******************** Login/SignUp Section *********************** */
+/* ************************************* Login/SignUp Section *************************************** */
 
-document.getElementById('sign-up-in').addEventListener('click', (e) => showLogin(e));
-function showLogin (e) {
-    //e.preventDefault();
+document.getElementById('sign-up-in').addEventListener('click', () => showLogin());
+function showLogin () {
     let sectionLogin = document.getElementById('section-login');
     if (sectionLogin.classList.contains('none-display')) {
         sectionLogin.classList.replace('none-display', 'bounce-in-top');
@@ -86,14 +85,53 @@ function showLogin (e) {
     }
 }
 
+
+/* **************** Users declaration ***************** */
+
 let users = JSON.parse(localStorage.getItem('usersJuanita'));
 if (users === null) {
     users = [];
 }
 
-const signInUpForm =  document.getElementById('form-sign-in-up');
+const verifyEmailForm = document.getElementById('verify-email-form');
+const signInForm =  document.getElementById('sign-in-form');
+const signInUpForm = document.getElementById('sign-up-form');
 const submitErrorSpam = document.querySelector('.submit-error');
-signInUpForm.addEventListener('submit', (e)=> verifyUser(e), {once: true});
+verifyEmailForm.addEventListener('submit', (e)=> verifyUser(e));
+function verifyUser(e) {
+    e.preventDefault();
+    let email = verifyEmailForm.email.value;
+    const spanVolver = document.querySelector('.span-volver');
+    spanVolver.addEventListener('click', () => volverVerifyUser())
+    if (checkEmail(email)) {
+        verifyEmailForm.classList.contains('fade-in-left') && verifyEmailForm.classList.replace('fade-in-left', 'fade-out-left');
+        !verifyEmailForm.classList.contains('fade-in-left') && verifyEmailForm.classList.add('fade-out-left');
+        verifyEmailForm.addEventListener('animationend', ()=> {
+            verifyEmailForm.classList.replace('display-flex', 'none-display');
+            signInForm.classList.replace('none-display', 'fade-in-right');
+            signInForm.classList.add('display-flex');
+        }, {once: true});
+
+    } else {
+
+    }
+    function volverVerifyUser() {
+        signInForm.classList.replace('fade-in-right', 'fade-out-right');
+        signInForm.addEventListener('animationend', ()=> {
+            signInForm.classList.replace('display-flex', 'none-display');
+            verifyEmailForm.classList.replace('none-display', 'display-flex');
+            verifyEmailForm.classList.replace('fade-out-left', 'fade-in-left');
+        }, {once: true});
+    }
+    function checkEmail(string) {
+        console.log(string);
+        return users.some(item => item.email === string);
+    }
+}
+
+/* 
+
+
 function verifyUser(e) {
     e.preventDefault();
     const email = signInUpForm.email.value;
@@ -212,7 +250,7 @@ function setUserAndUsers(users, user) {
 }
 function checkEmail(string) {
     return (users.some( item => item.email === string))
-}
+} */
 }
 
 

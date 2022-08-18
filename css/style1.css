@@ -260,9 +260,11 @@ li.submenu-li-productos:hover>a {
 .section-login {
     width: 100vw;
     background-color: var(--snow);
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 3vw;
+    row-gap: 2.5vw;
 }
 .span-volver {
     position: absolute;
@@ -276,11 +278,13 @@ li.submenu-li-productos:hover>a {
 .span-volver:hover {
     cursor: pointer;
 }
+.display-flex {
+    display: flex;
+}
 .section-login form {
     position: relative;
-    display:flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     justify-content: flex-start;
     width: 50%;
     row-gap: 2vw;
@@ -290,6 +294,7 @@ li.submenu-li-productos:hover>a {
 .form-div {
     display: flex;
     flex-direction: column;
+    align-items: center;
     row-gap: 1vw;
     width: 100%;
     color: var(--twilight-lavender);
@@ -299,7 +304,7 @@ li.submenu-li-productos:hover>a {
     padding: 1vw;
 }
 .ctn-email label {
-    transform: translateY(20px) scale(.8);
+    transform: translateY(25px) scale(.8);
     background: var(--snow);
     padding: 0 8px;
     width: fit-content;
@@ -318,7 +323,11 @@ li.submenu-li-productos:hover>a {
     background: #602f4b;
 }
 .g-f-a-div {
-    row-gap: 0.5vw;
+    row-gap: 3.5vw;
+    padding-top: 2.5vw;
+}
+.g-f-a-div>div {
+    width: 70%;
 }
 .form-div>p>a {
     color: #542aff;
@@ -346,6 +355,22 @@ li.submenu-li-productos:hover>a {
     -webkit-animation: slide-out-top 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) 0.5s both;
 	        animation: slide-out-top 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) 0.5s both;
 }
+.fade-out-left {
+	-webkit-animation: fade-out-left 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: fade-out-left 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+.fade-in-right {
+	-webkit-animation: fade-in-right 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in-right 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+.fade-in-left {
+	-webkit-animation: fade-in-left 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in-left 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+.fade-out-right {
+	-webkit-animation: fade-out-right 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: fade-out-right 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
 .none-display {
     display: none;
 }
@@ -360,7 +385,57 @@ li.submenu-li-productos:hover>a {
     opacity: 1;
     transition: all 0.5s ease-in;
 }
-@keyframes bounce-in-top {
+
+@keyframes fade-out-right {
+    0% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: translateX(50px);
+              transform: translateX(50px);
+      opacity: 0;
+    }
+  }
+@keyframes fade-in-right {
+    0% {
+      -webkit-transform: translateX(50px);
+              transform: translateX(50px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+      opacity: 1;
+    }
+  }
+@keyframes fade-in-left {
+    0% {
+      -webkit-transform: translateX(-50px);
+              transform: translateX(-50px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+      opacity: 1;
+    }
+  }
+@keyframes fade-out-left {
+    0% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: translateX(-50px);
+              transform: translateX(-50px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes bounce-in-top {
     0% {
       -webkit-transform: translateY(-500px);
               transform: translateY(-500px);
