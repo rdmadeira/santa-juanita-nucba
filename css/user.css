@@ -1,0 +1,40 @@
+@import url(./style1.css);
+#search-products-form {
+    display: flex;
+}
+#search-products-form label {
+    margin-right: 10px;
+}
+#search-products-form div#ctn-search-img {
+    width: 25px;
+}
+#search-products-form div#ctn-search-img:hover {
+    cursor: pointer;
+}
+ul.menu {
+    align-items: stretch;
+    justify-content: end;
+}
+div.menu h1 {
+    text-align: end;
+}
+#shopcart-img-ctn {
+    width: 5%;
+    height: 5%;
+    align-self: center;
+    position: relative;
+}
+#shopcart-img-ctn:hover {
+    cursor: pointer;
+}
+#shopcart-img-ctn span {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    font-size: 15px;
+    color: var(--snow);
+    background-color: var(--pink-lavender);
+    border-radius: 50%;
+    padding: 0 5px;
+    border: 1px solid var(--snow);
+}
