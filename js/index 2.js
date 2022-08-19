@@ -93,11 +93,15 @@ if (users === null) {
     users = [];
 }
 
+/* **************** Verify Email Functions and Listeners **************** */
+
 const verifyEmailForm = document.getElementById('verify-email-form');
 const signInForm =  document.getElementById('sign-in-form');
 const signUpForm = document.getElementById('sign-up-form');
-const submitErrorSpam = document.querySelector('.submit-error');
+const submitErrorSpam = document.querySelectorAll('.submit-error');
 verifyEmailForm.addEventListener('submit', (e)=> verifyUser(e));
+verifyEmailForm.addEventListener('input', () => cleanOutline(verifyEmailForm.email));
+
 function verifyUser(e) {
     e.preventDefault();
     let email = verifyEmailForm.email.value;
@@ -107,10 +111,15 @@ function verifyUser(e) {
     });
     if (checkEmail(email)) {
         showNext(signInForm);
-
-    } else {
+        signInForm.email.value = email;
+        signInForm.email.readOnly = true;
+    } else if (!checkEmail(email) && email !== '') {
         showNext(signUpForm);
         signUpForm.email.value = email;
+        signUpForm.email.readOnly = true;
+    } else if (email === '') {
+        showSpamMensaje('Completá todos los campos!');
+        verifyEmailForm.email.style.outline = 'red 2px solid';                
     }
     function showNext(element) {
         verifyEmailForm.classList.contains('fade-in-left') && verifyEmailForm.classList.replace('fade-in-left', 'fade-out-left');
@@ -135,104 +144,63 @@ function verifyUser(e) {
         return users.some(item => item.email === string);
     }
 }
+function cleanOutline(element) {
+    element.removeAttribute('style');
+    submitErrorSpam.forEach( item => item.classList.remove('visible') );
+}
+function showSpamMensaje(string) {
+    submitErrorSpam.forEach( item => {
+        console.log(item);
+        item.classList.add('visible'); 
+        item.innerHTML = string;
+        setTimeout( () => item.classList.remove('visible'), 4000 );
+    });
+}
 
-/* 
+/* ************************ Login Functions and Listeners *********************** */
 
-
-function verifyUser(e) {
+signInForm.addEventListener('submit', e => checkLogin(e));
+function checkLogin (e) {
     e.preventDefault();
-    const email = signInUpForm.email.value;
-    const spanVolver = document.createElement('span');
-    const newPasswordLabel = document.createElement('label');
-    const newPasswordInput = document.createElement('input');
-    const btnSubmit = document.getElementById('btn-mail-submit');
-    let user = users.find(item => item.email === email);
-    function createPasswordInput() {
-        spanVolver.classList.add('span-volver');
-        spanVolver.innerText = '<<';
-        signInUpForm.insertAdjacentElement('afterbegin', spanVolver);
-        newPasswordLabel.innerText = 'Password';
-        newPasswordLabel.setAttribute('for', 'sign-in-input-password');
-        newPasswordInput.setAttribute('type', 'password');
-        newPasswordInput.setAttribute('id', 'sign-in-input-password');
-        newPasswordInput.setAttribute('name', 'password');
-        signInUpForm.email.readOnly = true;
-        titleForm.innerText = 'Ingresá A Su Cuenta:'
-        btnSubmit.insertAdjacentElement("beforebegin", newPasswordLabel);
-        btnSubmit.insertAdjacentElement("beforebegin", newPasswordInput);
-        btnSubmit.innerHTML = 'Ingresá';
-        spanVolver.addEventListener('click', ()=> removePasswordInput());
-        signInUpForm.addEventListener('submit', (e)=>{
-            e.preventDefault();
-            let password = newPasswordInput.value;
-            // console.log(password);
-            if (user.email === email && user.password === password) {
-                localStorage.setItem('userJuanita', JSON.stringify(user));
-                return location.href = './pagina-user';
-            }
-            if (user.email !== email || user.password !== password) {
-                submitErrorSpam.classList.add('visible');
-                setTimeout( ()=>{
-                    submitErrorSpam.classList.remove('visible');
-                }, 4000);
-            }
-        });
-    }
-    function removePasswordInput() {
-        spanVolver.remove();
-        newPasswordLabel.remove();
-        newPasswordInput.remove();
-        btnSubmit.innerText = 'SIGUIENTE';
-        titleForm.innerText = 'INGRESÁ O CREÁ SU CUENTA'
-        signInUpForm.email.readOnly = false;
-        signInUpForm.addEventListener('submit', (e)=> verifyUser(e), {once: true});
-    }
-    if (checkEmail(email)) {
-        createPasswordInput();        
+    let email = signInForm.email.value;
+    let password = signInForm.password.value;
+    let user = users.find(item => item.email === email && item.password === password);
+    signInForm.addEventListener('input', () => {
+        cleanOutline(signInForm.email); 
+        cleanOutline(signInForm.password);
+    });
+    
+    if (email === '' || password === '') {
+        showSpamMensaje('Completá todos los campos');
+        email === '' && (signInForm.email.style.outline = 'red 2px solid');
+        password === '' && (signInForm.password.style.outline = 'red 2px solid');
+    } else if (user){
+        loginUser(user)
+    } else {
+        showSpamMensaje('Datos Incorrectos!')
     }
 
-    if (!checkEmail(email)) {
-        addRegisterInputs();
-        signInUpForm.addEventListener('submit', (e) => registerNewUser(e));
+    function loginUser(user) {
+        localStorage.setItem('userJuanita', JSON.stringify(user));
+        setTimeout( ()=> location.href = './pagina-user', 1000 );
     }
 }
 
+/* ************************ Register Functions and Listeners *********************** */
 
-let titleForm = document.querySelector('#form-sign-in-up h3');
-function addRegisterInputs() {
-    titleForm.innerHTML = 'CREÁ SU CUENTA: ';
-    const newInputName = document.createElement('input');
-    const newInputLastname = document.createElement('input');
-    const newLabelName = document.createElement('label');
-    const newLabelLastname = document.createElement('label');
-    const newPasswordLabel = document.createElement('label');
-    const newPasswordInput = document.createElement('input');
-    const btnSubmit = document.getElementById('btn-mail-submit');
-    newLabelName.innerText = 'Name:';
-    newLabelLastname.innerText = 'Lastname:';
-    newInputName.setAttribute('type', 'text');
-    newInputName.setAttribute('name', 'name');
-    newInputLastname.setAttribute('type', 'text');
-    newInputLastname.setAttribute('name', 'lastname');
-    newPasswordLabel.innerText = 'Password';
-    newPasswordLabel.setAttribute('for', 'sign-in-input-password');
-    newPasswordInput.setAttribute('type', 'password');
-    newPasswordInput.setAttribute('id', 'sign-in-input-password');
-    newPasswordInput.setAttribute('name', 'password');
-    titleForm.insertAdjacentElement('afterend', newInputLastname);
-    titleForm.insertAdjacentElement('afterend', newInputName);
-    newInputLastname.insertAdjacentElement('beforebegin', newLabelLastname);
-    newInputName.insertAdjacentElement('beforebegin', newLabelName);
-    btnSubmit.insertAdjacentElement("beforebegin", newPasswordLabel);
-    btnSubmit.insertAdjacentElement("beforebegin", newPasswordInput);
-    btnSubmit.innerHTML = 'Registrá';
-}
-function registerNewUser(e) {
+signUpForm.addEventListener('submit', e => checkRegister(e));
+signUpForm.addEventListener('input', () => {
+    cleanOutline(signUpForm.name);
+    cleanOutline(signUpForm.lastname);
+    cleanOutline(signUpForm.email);
+    cleanOutline(signUpForm.password);
+});
+function checkRegister(e) {
     e.preventDefault();
-    const name = signInUpForm.name.value;
-    const lastname = signInUpForm.lastname.value;
-    const email = signInUpForm.email.value;
-    const password = signInUpForm.password.value;
+    let name = signUpForm.name.value;
+    let lastname = signUpForm.lastname.value;
+    let email = signUpForm.email.value;
+    let password = signUpForm.password.value; console.log(password.length);
     class User {
         constructor (name, lastname, email, password) {
             this.name = name;
@@ -241,24 +209,42 @@ function registerNewUser(e) {
             this.password = password;
             this.myproducts = [];
         }
+        bienvenida () {
+            return `Bienvenid@ ${this.name}!`;
+        }
+        misProductos () {
+            return `Sus productos elejidos son:`
+        }
     }
-    console.log(name, lastname, email, password);
-    if (name !=='' && lastname !== '' && email !== '' && password !== '') {
-        const newUser =  new User (name, lastname, email, password);
-        users.push(newUser);
-        setUserAndUsers(users, newUser);
-        //verifyUser();
-        //location.href = '#section-login';
+    if (name === '' || lastname === '' || email === '' || password === '') {
+        showSpamMensaje('Completá todos los campos!');
+        name === '' && (signUpForm.name.style.outline = 'solid 2px red');
+        lastname === '' && (signUpForm.lastname.style.outline = 'solid 2px red');
+        email === '' && (signUpForm.email.style.outline = 'solid 2px red');
+        password === '' && (signUpForm.password.style.outline = 'solid 2px red');
+    } else if (password.length < 6 ) {
+        showSpamMensaje('Elija contraseña con 6 o más caracteres');
+        signUpForm.password.style.outline = 'solid 2px red';
+    } else {
+        let user = new User (name, lastname, email, password);
+        createNewUser(user);
+        signUpForm.classList.remove('fade-in-right');
+        signUpForm.classList.replace('display-flex', 'none-display');
+        signInForm.classList.add('hidden');
+        signInForm.firstElementChild.style.display = 'none';
+        signInForm.email.value = user.email;
+        signInForm.classList.replace('none-display', 'display-flex');
+        setTimeout( ()=>{
+            signInForm.classList.replace('hidden', 'visible')
+        }, 1000 );
     }
+}
+function createNewUser(user) {
+    users.push(user);
+    setUserAndUsers(users, user);
 }
 function setUserAndUsers(users, user) {
     localStorage.setItem('usersJuanita', JSON.stringify(users));
     localStorage.setItem('userJuanita', JSON.stringify(user));
 }
-function checkEmail(string) {
-    return (users.some( item => item.email === string))
-} */
 }
-
-
-

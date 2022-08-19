@@ -288,7 +288,7 @@ li.submenu-li-productos:hover>a {
     /* align-items: center; */
     justify-content: flex-start;
     width: 50%;
-    row-gap: 2vw;
+    row-gap: 15px;
     text-align: center;
     transition: all 0.5s ease;
 }
@@ -379,6 +379,11 @@ li.submenu-li-productos:hover>a {
     visibility: hidden;
     opacity: 0;
     color: red;
+    transition: all 0.5s ease-in;
+}
+.hidden {
+    visibility: hidden;
+    opacity: 0;
     transition: all 0.5s ease-in;
 }
 .visible {
