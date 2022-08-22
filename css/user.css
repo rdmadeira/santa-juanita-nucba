@@ -42,4 +42,16 @@ div.menu h1 {
     display: flex;
     flex-wrap: wrap;
     width: 90%;
+    background-color: var(--lavender-blush);
+    /* height: 100vh; */
+}
+#loading-ctn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--lavender-blush);
+    flex-direction: column;
+    padding: 2vw 5vw;
+    color: var(--thistle);
 }
