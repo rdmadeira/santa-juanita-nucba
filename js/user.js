@@ -1,12 +1,16 @@
+/* **************** Get user and ejecute Saludo *********************  */
+
 let user = JSON.parse(localStorage.getItem('userJuanita'));
 const logoutEl = document.getElementById('logout');
 const spanSaludo = document.createElement('span');
+
 spanSaludo.innerText = `Hola, ${user.name}! `
 logoutEl.insertAdjacentElement('beforebegin', spanSaludo);
+logoutEl.addEventListener('click', () => logout() );
 
-logoutEl.addEventListener('click', () => logoutEl(user) );
 
-/* *************** Para Mobiles Show Menu vertical **************** */
+/* *************** For Mobiles Show Menu vertical **************** */
+
 document.getElementById('menu-vertical').addEventListener('click', showMenuMobile);   
 function showMenuMobile() {
     var menuVertical = document.getElementById('ul-menu');
@@ -29,6 +33,23 @@ function showMenuMobile() {
 }
 
 /* ******************* Funcion Logout ******************************** */
-function logout(user) {
-    console.log(user);
+
+function logout() {
+    localStorage.removeItem('userJuanita');
+    location.href = '../../index.html';
 }
+
+/* ******************* Show Products ********************************* */
+
+const myPromise =  new Promise (( resolve, reject ) => {
+    setTimeout( () => resolve( JSON.parse(localStorage.getItem('productos')) ), 2000);
+})
+const getProductos = async () => {
+    /* console.log(await myPromise); */
+    return await myPromise;
+}
+async function asignProductos () {
+    const productos = await getProductos();
+    console.log(productos);
+}
+window.addEventListener('load', () => asignProductos())

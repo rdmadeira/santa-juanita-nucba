@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "name": "santa-juanita-nucba",
+  "description": "Santa Juanita Productos Aromaticos y Energéticos Artesanales.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-products": "nodemon js/products.mjs",
+    "start-fetch": "nodemon js/fetchpost.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rdmadeira/santa-juanita-nucba.git"
+  },
+  "keywords": [
+    "project",
+    "nucba",
+    "santa",
+    "juanita",
+    "javascript"
+  ],
+  "author": "Rodrigo Madeira",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rdmadeira/santa-juanita-nucba/issues"
+  },
+  "homepage": "https://github.com/rdmadeira/santa-juanita-nucba#readme"
+}
