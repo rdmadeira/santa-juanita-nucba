@@ -41,8 +41,9 @@ div.menu h1 {
 #products-ctn {
     display: flex;
     flex-wrap: wrap;
-    width: 90%;
     background-color: var(--lavender-blush);
+    justify-content: center;
+    align-items: center;
     /* height: 100vh; */
 }
 #loading-ctn {
@@ -54,4 +55,14 @@ div.menu h1 {
     flex-direction: column;
     padding: 2vw 5vw;
     color: var(--thistle);
+}
+.product-ctn {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    row-gap: 20px;
+    padding: 20px 7px;
+}
+.product-ctn p {
+    font-size: 17px;
 }

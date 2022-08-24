@@ -53,9 +53,8 @@ async function asignProductos () {
     const productsCtnEl =  document.getElementById('products-ctn');
 
     await productos && loadProducts(productos.todoslosproductos);
-
+    
     function loadProducts(array) {
-        
         const loadCtn = document.getElementById('loading-ctn');
         loadCtn.style.display = 'none';
         array.forEach(item => {
@@ -64,20 +63,39 @@ async function asignProductos () {
             let newP1 = document.createElement('p');
             let newP2 = document.createElement('p');
             let newImg = document.createElement('img');
+            let price = Intl.NumberFormat('es-AR', {style: "currency", currency: "ARG"});
     
             newCtn.classList.add('product-ctn');
             newH3.innerText = item.name;
             newP1.innerText = item.description;
-            if (item.type = 'vela') {
-                newP2.innerText = item.price;
-                
-            }
             newImg.src = item.img;
     
             newCtn.append(newImg, newH3, newP1);
             productsCtnEl.appendChild(newCtn);
+            
+            if (item.type === 'vela') {
+                let newSelect = document.createElement('select');
+                let size;
+
+                newSelect.innerHTML = '<option value="medium">Medium</option><option value="big">Big</option>';
+                newCtn.insertAdjacentElement("beforeend", newSelect);
+                newP2.innerText = price.format(item.content.medium.price);
+                newSelect.addEventListener('change', () => {
+                    size = newSelect.value;
+                    size === 'medium' && (newP2.innerText = price.format(item.content.medium.price));
+                    size === 'big' && (newP2.innerText = price.format(item.content.big.price));
+                });
+                /* let option1 = document.createElement('option');
+                let option2 = document.createElement('option');
+                option1.innerHTML = 'medium';
+                option2.innerHTML = 'big';
+                newSelect.append(option2, option1); */
+            } else {
+                newP2.innerText = price.format(item.price);                
+            }
+            newCtn.insertAdjacentElement('beforeend', newP2)
         });
     }
-
 }
+
 window.addEventListener('load', () => asignProductos());

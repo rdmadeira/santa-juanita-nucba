@@ -31,10 +31,8 @@ export class Velas extends Products {
                 'sub-description': 'Recipiente circular de 8cm de alto y 10cm de diametro'
             }
         }
+        this.type = 'vela'
         
-    }
-    get type () {
-        return 'vela';
     }
     set setStock (arr) {
         this.content.medium.stock = arr[0];
@@ -49,10 +47,11 @@ export class Bombasefervecentes extends Products {
         super(name, description, img, keywords, color);
         this.price = price;
         this.content = '10 unidades de 20g cada';
+        this.type = 'bomba';
     }
-    get type () {
+    /* getType () {
         return 'bomba efervecente';
-    }
+    } */
     set setStock (num) {
         this.stock = num;
     }
@@ -61,11 +60,12 @@ export class SalesdeBano extends Products {
     constructor (name, description, img, keywords, color, price) {
         super(name, description, img, keywords, color);
         this.price = price;
-        this.content = '250g'
+        this.content = '250g';
+        this.type = 'sal';
     }
-    get type () {
-        return 'sales de baño';
-    }
+    /* getType () {
+        return 'sal de baño';
+    } */
     set setStock (num) {
         this.stock = num;
     }
@@ -75,10 +75,11 @@ export class DifusoresDeVarilla extends Products {
         super(name, description, img, keywords, color);
         this.price = price;
         this.content = '300ml';
+        this.type = 'difusor';
     }
-    get type () {
+    /* getType () {
         return 'difusor de varilla';
-    }
+    } */
     set setStock (num) {
         this.stock = num;
     }
@@ -88,10 +89,11 @@ export class Kits extends Products {
         super(name, description, img, keywords, color);
         this.price = price;
         this.content = '0.8kg - 1.5kg';
+        this.type = 'kit';
     }
-    get type () {
+    /* getType () {
         return 'kit';
-    }
+    } */
     set setStock (num) {
         this.stock = num;
     }

@@ -10,7 +10,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-products": "nodemon js/products.mjs",
-    "start-fetch": "nodemon js/fetchpost.mjs"
+    "start-fetch": "nodemon js/fetchpost.mjs", 
+    "start-productclases": "nodemon js/productclases.mjs"
   },
   "repository": {
     "type": "git",
