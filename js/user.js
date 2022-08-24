@@ -63,39 +63,45 @@ async function asignProductos () {
             let newP1 = document.createElement('p');
             let newP2 = document.createElement('p');
             let newImg = document.createElement('img');
+            let newBtn = document.createElement('button');
             let price = Intl.NumberFormat('es-AR', {style: "currency", currency: "ARG"});
-    
             newCtn.classList.add('product-ctn');
             newH3.innerText = item.name;
             newP1.innerText = item.description;
             newImg.src = item.img;
-    
+            newBtn.innerHTML = 'Agregar al Carrito';
+            newBtn.addEventListener('click', () => addToCart(item));
             newCtn.append(newImg, newH3, newP1);
             productsCtnEl.appendChild(newCtn);
+            newP1.classList.add('products-text-p');
+            newP2.classList.add('precio-p');
             
             if (item.type === 'vela') {
                 let newSelect = document.createElement('select');
                 let size;
 
-                newSelect.innerHTML = '<option value="medium">Medium</option><option value="big">Big</option>';
+                newSelect.innerHTML = '<option value="medium">Mediano</option><option value="big">Grande</option>';
                 newCtn.insertAdjacentElement("beforeend", newSelect);
                 newP2.innerText = price.format(item.content.medium.price);
                 newSelect.addEventListener('change', () => {
                     size = newSelect.value;
                     size === 'medium' && (newP2.innerText = price.format(item.content.medium.price));
                     size === 'big' && (newP2.innerText = price.format(item.content.big.price));
-                });
-                /* let option1 = document.createElement('option');
-                let option2 = document.createElement('option');
-                option1.innerHTML = 'medium';
-                option2.innerHTML = 'big';
-                newSelect.append(option2, option1); */
+                })        
             } else {
                 newP2.innerText = price.format(item.price);                
             }
-            newCtn.insertAdjacentElement('beforeend', newP2)
+            newCtn.insertAdjacentElement('beforeend', newBtn);
+            newCtn.insertAdjacentElement('beforeend', newP2);
         });
     }
+}
+function addToCart(obj) {
+    const cartNumber = document.querySelector('#shopcart-img-ctn > span');
+    const cartEl = document.querySelector('#shopcart-img-ctn');
+    cartNumber.innerText = Number(cartNumber.innerText) + 1;
+    cartEl.style.transform = 'scale(1.3)';
+    setTimeout( ()=>cartEl.removeAttribute('style'), 1000 )
 }
 
 window.addEventListener('load', () => asignProductos());

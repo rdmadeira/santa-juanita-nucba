@@ -1,4 +1,11 @@
 @import url(./style1.css);
+
+header {
+    position: sticky;
+    top: 0;
+    border-bottom: solid 30px var(--mulberry);
+    left: 0;
+}
 #search-products-form {
     display: flex;
 }
@@ -23,6 +30,8 @@ div.menu h1 {
     height: 5%;
     align-self: center;
     position: relative;
+    transition: 0.6s ease all;
+
 }
 #shopcart-img-ctn:hover {
     cursor: pointer;
@@ -43,7 +52,9 @@ div.menu h1 {
     flex-wrap: wrap;
     background-color: var(--lavender-blush);
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
+    gap: 20px 10px;
+    padding: 50px 0;
     /* height: 100vh; */
 }
 #loading-ctn {
@@ -61,8 +72,48 @@ div.menu h1 {
     flex-direction: column;
     width: 30%;
     row-gap: 20px;
-    padding: 20px 7px;
+    overflow: hidden;
+    border: 1px solid var(--thistle);
+    border-radius: 15px 15px 15px 0;
+    color: var(--opera-mauve);
 }
-.product-ctn p {
-    font-size: 17px;
+.product-ctn h3 {
+    padding: 0 7px;
 }
+.products-text-p {
+    font-size: 15px;
+    line-height: 1.5;
+    flex: auto;
+    padding: 0px 7px;
+}
+.product-ctn select {
+    width: 50%;
+    border: none;
+    color: var(--pink-lavender);
+    padding: 5px 5px;
+    margin-left: 7px
+}
+.product-ctn button {
+    padding: 6px;
+    width: 50%;
+    align-self: center;
+    color: var(--snow);
+    background-color: var(--mulberry);
+    border: none;
+}
+.product-ctn button:hover {
+    cursor: pointer;
+    background-color: var(--pink-lavender);
+}
+.precio-p {
+    font-size: 24px !important;
+    font-weight: 800;
+    color: var(--snow);
+    align-self: flex-end;
+    background-color: var(--twilight-lavender);
+    padding: 10px 15px 10px 15px;
+    width: 100%;
+    text-align: end;
+    border-radius: 0 0 15px 0;
+}
+
