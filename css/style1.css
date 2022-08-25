@@ -102,11 +102,15 @@ a, a:visited {
     color: unset;
     
 }
-
 header {
     width:100%;
     background: var(--lavender-blush);
     border-bottom: solid 30px var(--mulberry);
+    transition: 0.5s ease all;
+}
+.reduced-header {
+    border-bottom: 5px solid var(--opera-mauve);
+    transition: 0.5s ease all;    
 }
 nav.nav-header {
     display: flex;
@@ -119,11 +123,16 @@ nav.nav-header {
 .logo {
     width: min(20vw,165px);
     min-width: 127px;
+    transition: 0.5s ease all;
+}
+.reduced-logo {
+    width: 6vw;
+    min-width: unset;
+    transition: 0.5s ease all;
 }
 .logo img{
     max-height: 100%;
     max-width: 100%;
-
 }
 div.menu-vertical {
     display: none;
@@ -143,12 +152,14 @@ div.menu-vertical img {
 div.title {
     font-family: 'Barlow', sans-serif;
     color: var(--opera-mauve);
-   display: flex;
+    display: flex;
     flex-direction: column;
-
 }
 div.menu {
     align-self: flex-end;
+}
+.reduced-title {
+    display: none !important;
 }
 div.menu h1 {
     padding: 0 0 0 20px;

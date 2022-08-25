@@ -104,4 +104,28 @@ function addToCart(obj) {
     setTimeout( ()=>cartEl.removeAttribute('style'), 1000 )
 }
 
+/* ********************************** Scrolling Header ****************************************************** */
+function scrollTop() {
+    const header = document.querySelector('header');
+    const logoCtn =  document.querySelector('.logo');
+    const divMenuTitle = document.querySelector('.title');
+    const signInUp = document.querySelector('.sign-in-up');
+    let position = document.documentElement.offsetTop;
+    let scrolled = document.scrollingElement.scrollTop;
+    console.log(position, scrolled);
+    if (scrolled > position + 100) {
+        header.classList.add('reduced-header');
+        logoCtn.classList.add('reduced-logo');
+        divMenuTitle.classList.add('reduced-title');
+        signInUp.classList.add('reduced-title');
+    } else {
+        header.classList.remove('reduced-header');
+        logoCtn.classList.remove('reduced-logo');
+        divMenuTitle.classList.remove('reduced-title');
+        signInUp.classList.remove('reduced-title');
+    }
+}
 window.addEventListener('load', () => asignProductos());
+window.addEventListener('scroll', () => {
+    scrollTop();
+})
