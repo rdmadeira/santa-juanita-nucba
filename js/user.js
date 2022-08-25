@@ -57,7 +57,7 @@ async function asignProductos () {
     function loadProducts(array) {
         const loadCtn = document.getElementById('loading-ctn');
         loadCtn.style.display = 'none';
-        array.forEach(item => {
+        array.forEach((item, index) => {
             let newCtn = document.createElement('div');
             let newH3 = document.createElement('h3');
             let newP1 = document.createElement('p');
@@ -66,11 +66,12 @@ async function asignProductos () {
             let newBtn = document.createElement('button');
             let price = Intl.NumberFormat('es-AR', {style: "currency", currency: "ARG"});
             newCtn.classList.add('product-ctn');
+            newCtn.setAttribute('id', `product-ctn-${index}`);
             newH3.innerText = item.name;
             newP1.innerText = item.description;
             newImg.src = item.img;
             newBtn.innerHTML = 'Agregar al Carrito';
-            newBtn.addEventListener('click', () => addToCart(item));
+            newBtn.addEventListener('click', () => addToCart(item, index));
             newCtn.append(newImg, newH3, newP1);
             productsCtnEl.appendChild(newCtn);
             newP1.classList.add('products-text-p');
@@ -96,12 +97,24 @@ async function asignProductos () {
         });
     }
 }
-function addToCart(obj) {
+function addToCart(obj, index) {
     const cartNumber = document.querySelector('#shopcart-img-ctn > span');
     const cartEl = document.querySelector('#shopcart-img-ctn');
+    const productCtnEl = document.getElementById('product-ctn-'+index);
     cartNumber.innerText = Number(cartNumber.innerText) + 1;
+    productCtnEl.style.transform = 'scale(1.05) ';
+    setTimeout( ()=>productCtnEl.removeAttribute('style'), 1000 );
     cartEl.style.transform = 'scale(1.3)';
-    setTimeout( ()=>cartEl.removeAttribute('style'), 1000 )
+    setTimeout( ()=>cartEl.removeAttribute('style'), 1000 );
+    
+    if (obj.type === 'vela') {
+        let size = document.querySelector('#product-ctn-'+ index + ' select').value;
+        size === 'medium' && (obj.price = obj.content.medium.price) && (obj.stock = obj.content.medium.stock);
+
+        size === 'big' && (obj.price = obj.content.big.price) && (obj.stock = obj.content.big.stock);
+    }
+    user.myproducts.push(obj);
+    console.log(user);
 }
 
 /* ********************************** Scrolling Header ****************************************************** */
