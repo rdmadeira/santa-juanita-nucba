@@ -101,6 +101,7 @@ function addToCart(obj, index) {
     const cartNumber = document.querySelector('#shopcart-img-ctn > span');
     const cartEl = document.querySelector('#shopcart-img-ctn');
     const productCtnEl = document.getElementById('product-ctn-'+index);
+    
     cartNumber.innerText = Number(cartNumber.innerText) + 1;
     productCtnEl.style.transform = 'scale(1.05) ';
     setTimeout( ()=>productCtnEl.removeAttribute('style'), 1000 );
@@ -113,8 +114,11 @@ function addToCart(obj, index) {
 
         size === 'big' && (obj.price = obj.content.big.price) && (obj.stock = obj.content.big.stock);
     }
-    user.myproducts.push(obj);
-    console.log(user);
+    let productExists = user.myproducts.some( item => item.name === obj.name );
+    !productExists ? (obj.quantity = 1) && user.myproducts.push(obj) : 
+        user.myproducts.forEach( item => item.name === obj.name && item.quantity++ );
+    console.log(productExists, obj, user);
+    
 }
 
 /* ********************************** Scrolling Header ****************************************************** */
@@ -125,13 +129,15 @@ function scrollTop() {
     const signInUp = document.querySelector('.sign-in-up');
     let position = document.documentElement.offsetTop;
     let scrolled = document.scrollingElement.scrollTop;
+    
     console.log(position, scrolled);
-    if (scrolled > position + 100) {
+    if (scrolled > position + 120 ) {
         header.classList.add('reduced-header');
         logoCtn.classList.add('reduced-logo');
         divMenuTitle.classList.add('reduced-title');
         signInUp.classList.add('reduced-title');
-    } else {
+    } 
+    if (scrolled < position + 20) {
         header.classList.remove('reduced-header');
         logoCtn.classList.remove('reduced-logo');
         divMenuTitle.classList.remove('reduced-title');
@@ -139,6 +145,6 @@ function scrollTop() {
     }
 }
 window.addEventListener('load', () => asignProductos());
-window.addEventListener('scroll', () => {
-    scrollTop();
+window.addEventListener( 'scroll', (e) => {
+    scrollTop(e);
 })

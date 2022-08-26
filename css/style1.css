@@ -107,6 +107,8 @@ header {
     background: var(--lavender-blush);
     border-bottom: solid 30px var(--mulberry);
     transition: 0.5s ease all;
+    position: relative;
+    z-index: 2;
 }
 .reduced-header {
     border-bottom: 5px solid var(--opera-mauve);
