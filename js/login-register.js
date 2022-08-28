@@ -1,3 +1,5 @@
+import { setUserAndUsers } from "./functions.mjs";
+
 /* ************************************* Login/SignUp Section *************************************** */
 const signUpInEl = document.getElementById('sign-up-in');
 signUpInEl.addEventListener('click', () => showLogin());    
@@ -181,9 +183,3 @@ function createNewUser(user) {
     users.push(user);
     setUserAndUsers(users, user);
 }
-function setUserAndUsers(users, user) {
-    localStorage.setItem('usersJuanita', JSON.stringify(users));
-    localStorage.setItem('userJuanita', JSON.stringify(user));
-}
-
-export {setUserAndUsers}

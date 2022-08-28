@@ -120,11 +120,11 @@ nav.nav-header {
     justify-content: space-between;
     align-items: center;
     background: var(--lavender-blush);
-    padding: 0vw 5vw 0vw 5vw;
+    padding: 0vw 2vw 0vw 2vw;
 }
 .logo {
-    width: min(20vw,165px);
-    min-width: 127px;
+    width: min(20vw,114px);
+    /* min-width: 127px; */
     transition: 0.5s ease all;
 }
 .reduced-logo {
@@ -168,6 +168,7 @@ div.menu h1 {
     /* font-size: max(2.2vw,28px); */
     font-size: var(--step-2);
     text-align: center;
+    margin-top: 3vw;
 }
 ul.menu {
     visibility: visible;
@@ -241,11 +242,11 @@ li.submenu-li-productos:hover>a {
     font-size: var(--step--1);
     background: rgb(243,232,224);
     background: linear-gradient(59deg, var(--lavender-blush) 0%, rgba(243,232,224,1) 15%, rgba(235,217,227,1) 100%);
-    padding-left: 8vw;
+    margin: 0 2vw;
 }
-.sign-in-up a{
+/* .sign-in-up a{
     padding: 1vw;
-}
+} */
 
 /* ************************ MAIN SECTION ****************************************** */
 .main {

@@ -1,0 +1,38 @@
+#content {
+    padding: 2vw 3vw;
+    width: 100%;
+    background: var(--lavender-blush);
+    color: var(--opera-mauve);
+}
+#myproducts-form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+}
+.table-ctn {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr repeat( 2, 2fr );
+}
+.table-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px var(--thistle);
+}
+.row1 {
+    font-weight: 800;
+}
+.no-items {
+    display: none;
+    text-align: center;
+}
+#total-result-ctn {
+    display: flex;
+    justify-content: end;
+    column-gap: 50px;
+}
+#buttons-ctn {
+    display: flex;
+    justify-content: end;
+    column-gap: 50px;
+}

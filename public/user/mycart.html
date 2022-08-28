@@ -7,6 +7,7 @@
     <meta name="keywords" content="vela Soja difusor bomba efervescente sales de baño mimo harmonia bien estar cariño">
     <link rel="stylesheet" type="text/css" href="../../css/style1.css" id="style1" title="main-page-stysheet">
     <link rel="stylesheet" type="text/css" href="../../css/user.css" >
+    <link rel="stylesheet" type="text/css" href="../../css/mycart.css" >
     <title>Santa Juanita - Mimos en el Alma - Productos para su bien estar</title>
 </head>
 <body>
@@ -24,7 +25,7 @@
                     <li class="menu menu-li-productos" id="menu-productos">Productos</li>
                     <li class="menu menu-li-productos" id="menu-promos">Promos</li>
                     <li class="menu" id="search-li">
-                        <form action="" id="search-products-form">
+                        <!-- <form action="" id="search-products-form">
                             <label for="search-input">Buscar</label>
                             <input type="text" name="search" id="search-input">
                             <button type="submit">
@@ -32,7 +33,7 @@
                                     <img src="../../assets/search-icon.png" alt="" width="100%" height="100%">
                                 </div>
                             </button>
-                        </form>
+                        </form> -->
                     </li>
                     <div id="shopcart-img-ctn">
                         <img src="../../assets/shopping-cart-icon.png" alt="" width="100%" height="100%">
@@ -50,15 +51,27 @@
     </header>
     
     <main class="main">
-        <div id="loading-ctn">
-            <h3>Loading</h3>
-            <img src="../../assets/loading-1.gif" alt="" srcset="">
-        </div>
-        <div id="products-ctn">
-        </div>
-        <!-- <template>
-            <select name="size-vela" id="size-vela"><option value="medium">Medium</option><option value="big">Big</option></select>
-        </template> -->
+        <div id="content">
+            <form action="" method="post" id="myproducts-form">
+                <ul class="table-ctn">
+                    <li class="table-cell row1 column1"></li>
+                    <li class="table-cell row1">Produto</li>
+                    <li class="table-cell row1">Cantidad</li>
+                    <li class="table-cell row1">Precio</li>
+                    <li class="table-cell row1">Sub-Total</li>
+                </ul>
+                <div class="no-items">No posee item en el carrito</div>
+                <div id="total-result-ctn">
+                    <div class="total-result">Total</div>
+                    <div class="total-result" id="total-result">$ 0.00</div>
+                </div>
+                <div id="buttons-ctn">
+                    <button type="reset" id="reset-cart-btn">Limpiar Carrito</button>
+                    <button type="submit">Comprar</button>
+                </div>
+            </form>
+            
+        </div>    
     </main>
     
     <footer>
@@ -88,8 +101,7 @@
             </div>
         </div>
     </footer>
-    <script src="../../js/fetchpost.mjs" type="module"></script>
-    <script src="../../js/fetchget.mjs" type="module"></script>
-    <script src="../../js/user.js" type="module"></script>
+    <script src="../../js/user.js" type="module"></script>    
+    <script src="../../js/mycart.js" type="module"></script>
 </body>
 </html>
