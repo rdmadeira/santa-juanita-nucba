@@ -86,7 +86,7 @@ export function addToCart(obj, index) {
         size === 'big' && (obj.price = obj.content.big.price) && (obj.stock = obj.content.big.stock);
         obj.size = size;
     }
-    let productExists = user.myproducts.some( item => item.name === obj.name );
+    let productExists = user.myproducts.some( item => item.name === obj.name && item.size === obj.size);
     !productExists ? (obj.quantity = 1) && user.myproducts.push(obj) : 
         user.myproducts.forEach( item => item.name === obj.name && item.quantity++ );
     users.forEach( (item, index) => item.email === user.email && (users[index] = user) );

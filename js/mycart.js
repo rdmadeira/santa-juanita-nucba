@@ -28,8 +28,11 @@ myProducts.length > 0 && createTable();
 
 function createTable() {
     console.log(myProducts);
+    
     const tableCtn = document.querySelector('.table-ctn');
     myProducts.forEach( (item, index) => {
+        item.addToPay = false;
+
         const newCheckboxLi = document.createElement('li');
         const newCheckbox = document.createElement('input');
         const newName =  document.createElement('li');
@@ -64,6 +67,7 @@ const totalResultEl = document.getElementById('total-result');
 const purchaseVerifyForm = document.getElementById('purchase-verify-user-form');
 
 function sumAmountsAndShow(index) {
+    console.log(myProducts);
     let sumAmount = 0;
     myProducts.forEach( item => {
         sumAmount += item.amount();
@@ -83,18 +87,21 @@ function submitPurchase(e) {
     e.preventDefault();
     let purchasedItems = myProducts.filter( item => item.addToPay === true );
     
-    purchaseVerifyForm.classList.replace('hidden', 'show-purchase-form');
+    purchaseVerifyForm.style.display = 'flex';
+    setTimeout( () => purchaseVerifyForm.classList.replace('hidden', 'show-purchase-form') , 500);
+    
     purchaseVerifyForm.addEventListener('submit', (e) => verifyPasswordToPay(e));
 
+    const errorSpan = document.getElementById('show-error');
     function verifyPasswordToPay(e) {
         e.preventDefault();
         let password = purchaseVerifyForm.password.value;
-        const errorSpan = document.getElementById('show-error');
         password === '' && showError('Completá el campo.');
         password !== '' && password !== user.password && showError('Dato incorrecto!');
         password === user.password && payCart();
-        purchaseVerifyForm.password.addEventListener('input', ()=> cleanSpanError());
+        purchaseVerifyForm.password.addEventListener('input', () => cleanSpanError());
         
+
         function showError(string) {
             purchaseVerifyForm.password.style.outline = '2px red solid';
             errorSpan.innerText = string;
@@ -104,27 +111,44 @@ function submitPurchase(e) {
             errorSpan.removeAttribute('style');
             purchaseVerifyForm.password.removeAttribute('style');
         }
-        function payCart() {
-            productos.todoslosproductos.forEach( (item, index) => {
-                if (item.type === 'vela') {
-                    purchasedItems.forEach( (el) => {
-                        if (el.name === item.name) {
-                            console.log(typeof el.quantity, item);
-                            el.size === 'medium' && (item.content.medium.stock -= el.quantity);
-                            el.size === 'big' && (item.content.big.stock -= el.quantity);
-                        } 
-                    })
-                } else {
-                    purchasedItems.forEach( el => el.name === item.name && (productos.todoslosproductos[index].stock -= el.quantity ));
-                }
+    }
+    /* Mejorar el aviso y el comportamiento si algo no tiene stock en la cantidad pedida */
+    function payCart() {
+        productos.todoslosproductos.forEach( (item, index) => {
+            if (item.type === 'vela') {
+                purchasedItems.forEach( (el) => {
+                    if (el.name === item.name) {
+                        if (el.size === 'medium') {
+                            el.quantity <= item.content.medium.stock ? (item.content.medium.stock -= el.quantity) && finishPurchaseAndSetLocalstorage()
+                            : showError(`${el.name} ${el.size} solo tiene stock de ${item.content.medium.stock} unidad.`);
+                        }
+                        if (el.size === 'big') {
+                            el.quantity <= item.content.big.stock ? (item.content.big.stock -= el.quantity) && finishPurchaseAndSetLocalstorage()
+                            : showError(`${el.name} ${el.size} solo tiene stock de ${item.content.big.stock} un.`);
+                        }
+                    } 
+                })
+            } else {
+                purchasedItems.forEach( el => el.name === item.name && (productos.todoslosproductos[index].stock -= el.quantity ));
+            }
+        });
+        function showError(string) {
+            
+            errorSpan.innerText = string;
+            errorSpan.style.visibility = 'visible';
+        }
+        
+        function finishPurchaseAndSetLocalstorage() {
+
+            purchasedItems.forEach((item) => {
+                myProducts.forEach( (el, i) => item.name === el.name && myProducts.splice(i, 1)) && (i--) ;
             });
-            myProducts.forEach( (item, index) => purchasedItems.forEach(el => el.name === item.name && myProducts.splice(index, 1)));
             user.myproducts = myProducts;
             users.forEach( (item, index) => item.email === user.email && (users.splice(index, 1, user)));
-            console.log(users, user);
             localStorage.setItem('productos', JSON.stringify(productos));
             setUserAndUsers(users, user);
-            //location.href = './mycart.html';
+            alert(`${user.name}, gracias por su compra!`);
+            location.href = './mycart.html';
         }
     }
 }
