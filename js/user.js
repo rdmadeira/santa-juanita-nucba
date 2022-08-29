@@ -68,11 +68,12 @@ window.addEventListener( 'scroll', (e) => {
 
 
 /* *************************** Nav Menu anchors ************************ */
-
+const cartNumber = document.querySelector('#shopcart-img-ctn > span');
 const cartEl = document.querySelector('#shopcart-img-ctn');
 const productosMenuEl = document.getElementById('menu-productos');
 const promosMenuEl = document.getElementById('menu-promos');
 
+cartNumber.innerText = user.myproducts.length;
 productosMenuEl.addEventListener( 'click', () => location.href = './userproducts.html' );
 promosMenuEl.addEventListener('click', () => location.href = './promos.html' );
 cartEl.addEventListener('click', () => location.href = './mycart.html');

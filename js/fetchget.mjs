@@ -71,8 +71,6 @@ window.addEventListener('load', () => asignProductos());
 const cartNumber = document.querySelector('#shopcart-img-ctn > span');
 const cartEl = document.querySelector('#shopcart-img-ctn');
 
-cartNumber.innerText = user.myproducts.length;
-
 export function addToCart(obj, index) {
     const productCtnEl = document.getElementById('product-ctn-'+index);
     cartNumber.innerText = Number(cartNumber.innerText) + 1;
