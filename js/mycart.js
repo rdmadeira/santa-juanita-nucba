@@ -67,7 +67,7 @@ const totalResultEl = document.getElementById('total-result');
 const purchaseVerifyForm = document.getElementById('purchase-verify-user-form');
 
 function sumAmountsAndShow(index) {
-    console.log(myProducts);
+    
     let sumAmount = 0;
     myProducts.forEach( item => {
         sumAmount += item.amount();
@@ -80,65 +80,86 @@ function sumAmountsAndShow(index) {
 /* ******************* Submit Purchase ****************** */
 
 const myproductsForm = document.getElementById('myproducts-form');
+const checkboxes = document.querySelectorAll('.table-ctn input[type="checkbox"]');
+let purchasedItems = [];
+const errorSpan = document.getElementById('show-error');
 
+checkboxes.forEach( item => 
+    item.addEventListener('change', () => { 
+        purchasedItems = myProducts.filter( item => item.addToPay === true ); 
+        console.log(purchasedItems);
+        cleanSpanError();
+    } ) 
+);
 myproductsForm.addEventListener('submit', (e) => submitPurchase(e));
 
+function cleanSpanError() {
+    errorSpan.removeAttribute('style');
+    errorSpan.innerText = 'Processing...';
+    purchaseVerifyForm.password.removeAttribute('style');
+}
 function submitPurchase(e) {
     e.preventDefault();
-    let purchasedItems = myProducts.filter( item => item.addToPay === true );
-    
     purchaseVerifyForm.style.display = 'flex';
     setTimeout( () => purchaseVerifyForm.classList.replace('hidden', 'show-purchase-form') , 500);
-    
     purchaseVerifyForm.addEventListener('submit', (e) => verifyPasswordToPay(e));
 
-    const errorSpan = document.getElementById('show-error');
     function verifyPasswordToPay(e) {
         e.preventDefault();
         let password = purchaseVerifyForm.password.value;
         password === '' && showError('Completá el campo.');
         password !== '' && password !== user.password && showError('Dato incorrecto!');
-        password === user.password && payCart();
+        password === user.password && payCart() && cleanSpanError();
         purchaseVerifyForm.password.addEventListener('input', () => cleanSpanError());
-        
-
-        function showError(string) {
-            purchaseVerifyForm.password.style.outline = '2px red solid';
-            errorSpan.innerText = string;
-            errorSpan.style.visibility = 'visible';
-        }
-        function cleanSpanError() {
-            errorSpan.removeAttribute('style');
-            purchaseVerifyForm.password.removeAttribute('style');
-        }
     }
+    function showError(string) {
+        purchaseVerifyForm.password.style.outline = '2px red solid';
+        errorSpan.innerText = string;
+        errorSpan.style.visibility = 'visible';
+    }
+    
     /* Mejorar el aviso y el comportamiento si algo no tiene stock en la cantidad pedida */
     function payCart() {
-        productos.todoslosproductos.forEach( (item, index) => {
-            
-            let verifyStock = purchasedItems.some( (el) => (el.name === item.name && el.type === 'vela' && el.size === 'medium' && el.quantity <= item.content.medium.stock) || (el.name === item.name && el.type === 'vela' && el.size === 'big' && el.quantity <= item.content.big.stock) || (el.name === item.name && el.type !== 'vela' && el.quantity <= item.stock) );
+        let verifyStockArray = [];
+        console.log(purchasedItems);
+        verifyStockArray = purchasedItems.map( item => {
+            return productos.todoslosproductos.map( (el, i) => {
+                return (item.name === el.name && item.type === 'vela' && item.size === 'medium' && item.quantity > el.content.medium.stock) || 
+                (item.name === el.name && item.type === 'vela' && item.size === 'big' && item.quantity > el.content.big.stock) ||
+                (item.name === el.name && item.type !== 'vela' && item.quantity > el.stock);
+            });
+        });
+        console.log(verifyStockArray);
+     
+        let indexOfNoStock = verifyStockArray.findIndex((item ) => item.some( item => item === true ) === true);
+        console.log(indexOfNoStock);
+
+        /* if (indexOfNoStock >= 0 && showError) {
+            return showError(`El item ${purchasedItems[indexOfNoStock].name} ${purchasedItems[indexOfNoStock].size} no tiene stock suficiente`);
+        }
+        if (indexOfNoStock === -1) {
+            return changeStockAndPurchase();
+        } */
+        indexOfNoStock >= 0 && showError(`El item ${purchasedItems[indexOfNoStock].name} ${purchasedItems[indexOfNoStock].size} no tiene stock suficiente`);
+        indexOfNoStock === -1 && changeStockAndPurchase();
         
-            console.log(verifyStock);
 
-           /*  if (item.type === 'vela') {                
-                purchasedItems.forEach( (el) => {
+        function changeStockAndPurchase() {
+            productos.todoslosproductos.forEach( item => {
+                purchasedItems.forEach( el => {
                     if (el.name === item.name) {
-                        if (el.size === 'medium') {
-                            el.quantity <= item.content.medium.stock ? (item.content.medium.stock -= el.quantity) && finishPurchaseAndSetLocalstorage()
-                            : showError(`${el.name} ${el.size} solo tiene stock de ${item.content.medium.stock} unidad.`);
+                        if (el.type === 'vela') {
+                            el.size === 'medium' && (item.content.medium.stock -= el.quantity);
+                            el.size === 'big' && (item.content.big.stock -= el.quantity);
+                        } else {
+                            item.stock -= el.quantity;
                         }
-                        if (el.size === 'big') {
-                            el.quantity <= item.content.big.stock ? (item.content.big.stock -= el.quantity) && finishPurchaseAndSetLocalstorage()
-                            : showError(`${el.name} ${el.size} solo tiene stock de ${item.content.big.stock} un.`);
-                        }
-                    } 
+                    }
                 })
-
-
-            } else {
-                purchasedItems.forEach( el => el.name === item.name && (productos.todoslosproductos[index].stock -= el.quantity ));
-            }*/
-        }); 
+            });
+            finishPurchaseAndSetLocalstorage();
+        }
+        
         function showError(string) {
             
             errorSpan.innerText = string;
@@ -146,7 +167,6 @@ function submitPurchase(e) {
         }
         
         function finishPurchaseAndSetLocalstorage() {
-
             purchasedItems.forEach((item) => {
                 myProducts.forEach( (el, i) => item.name === el.name && myProducts.splice(i, 1)) && (i--) ;
             });
@@ -155,7 +175,7 @@ function submitPurchase(e) {
             localStorage.setItem('productos', JSON.stringify(productos));
             setUserAndUsers(users, user);
             alert(`${user.name}, gracias por su compra!`);
-            location.href = './mycart.html';
+            //location.href = './mycart.html';
         }
     }
 }
