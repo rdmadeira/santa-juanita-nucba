@@ -72,27 +72,40 @@ const cartNumber = document.querySelector('#shopcart-img-ctn > span');
 const cartEl = document.querySelector('#shopcart-img-ctn');
 
 export function addToCart(obj, index) {
+    let newObj = Object.assign({}, obj);
+    
+    let productExists;
+    if (newObj.type === 'vela') {
+        let size = document.querySelector('#product-ctn-'+ index + ' select').value;
+        console.log(size);
+        if (size === 'medium') {
+            newObj.price = obj.content.medium.price;
+            newObj.stock = obj.content.medium.stock;
+        } else if (size === 'big') {
+            newObj.price = obj.content.big.price;
+            newObj.stock = obj.content.big.stock;
+        }        
+        
+        newObj.size = size;
+        // size === 'medium' && (obj.price = obj.content.medium.price) && (obj.stock = obj.content.medium.stock);
+        // size === 'big' && (obj.price = obj.content.big.price) && (obj.stock = obj.content.big.stock);
+        productExists = user.myproducts.some( item => item.name === newObj.name && item.size === newObj.size);
+        
+    } else {
+        productExists = user.myproducts.some( item => item.name === newObj.name );
+    }
+    !productExists ? (newObj.quantity = 1) && user.myproducts.push(newObj) : 
+        user.myproducts.forEach( item => item.name === newObj.name && item.size === newObj.size && item.quantity++ );
     const productCtnEl = document.getElementById('product-ctn-'+index);
-    cartNumber.innerText = Number(cartNumber.innerText) + 1;
+    cartNumber.innerText = user.myproducts.length;
     productCtnEl.style.transform = 'scale(1.05) ';
     setTimeout( ()=>productCtnEl.removeAttribute('style'), 400 );
     cartEl.style.transform = 'scale(1.3)';
     setTimeout( ()=>cartEl.removeAttribute('style'), 1000 );
-    
-    if (obj.type === 'vela') {
-        let size = document.querySelector('#product-ctn-'+ index + ' select').value;
-        size === 'medium' && (obj.price = obj.content.medium.price) && (obj.stock = obj.content.medium.stock);
-
-        size === 'big' && (obj.price = obj.content.big.price) && (obj.stock = obj.content.big.stock);
-        obj.size = size;
-    }
-    let productExists = user.myproducts.some( item => item.name === obj.name && item.size === obj.size);
-    !productExists ? (obj.quantity = 1) && user.myproducts.push(obj) : 
-        user.myproducts.forEach( item => item.name === obj.name && item.quantity++ );
     users.forEach( (item, index) => item.email === user.email && (users[index] = user) );
     users.splice( users.indexOf(user.email) , 1, user);
     setUserAndUsers(users, user);
-    console.log(user, users);
+    
 }
 
 

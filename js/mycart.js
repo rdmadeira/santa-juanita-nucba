@@ -116,14 +116,11 @@ function submitPurchase(e) {
     function payCart() {
         productos.todoslosproductos.forEach( (item, index) => {
             
-            /* let verifyStock = purchasedItems.some( (el) => { 
-                (el.type === 'vela' && el.size === 'medium' && el.quantity <= item.content.medium.stock) ||
-                (el.type === 'vela' && el.size === 'big' && el.quantity <= item.content.big.stock) || 
-                (el.type !== 'vela' && el.quantity <= item.stock);
-                console.log(el, item);
-            })
-            console.log(verifyStock); */
-            if (item.type === 'vela') {                
+            let verifyStock = purchasedItems.some( (el) => (el.name === item.name && el.type === 'vela' && el.size === 'medium' && el.quantity <= item.content.medium.stock) || (el.name === item.name && el.type === 'vela' && el.size === 'big' && el.quantity <= item.content.big.stock) || (el.name === item.name && el.type !== 'vela' && el.quantity <= item.stock) );
+        
+            console.log(verifyStock);
+
+           /*  if (item.type === 'vela') {                
                 purchasedItems.forEach( (el) => {
                     if (el.name === item.name) {
                         if (el.size === 'medium') {
@@ -140,8 +137,8 @@ function submitPurchase(e) {
 
             } else {
                 purchasedItems.forEach( el => el.name === item.name && (productos.todoslosproductos[index].stock -= el.quantity ));
-            }
-        });
+            }*/
+        }); 
         function showError(string) {
             
             errorSpan.innerText = string;
