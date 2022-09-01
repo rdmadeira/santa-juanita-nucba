@@ -122,7 +122,6 @@ function showError(string) {
     return
 }
     
-    /* Mejorar el aviso y el comportamiento si algo no tiene stock en la cantidad pedida */
 function payCart() {
     let verifyStockArray = [];
     console.log(purchasedItems);
@@ -133,10 +132,8 @@ function payCart() {
             (item.name === el.name && item.type !== 'vela' && item.quantity > el.stock);
         });
     });
-    console.log(verifyStockArray);
-    
+      
     let indexOfNoStock = verifyStockArray.findIndex((item ) => item.some( item => item === true ) === true);
-    console.log(indexOfNoStock);
    
     indexOfNoStock >= 0 && showError(`El item ${purchasedItems[indexOfNoStock].name} ${purchasedItems[indexOfNoStock].size} no tiene stock suficiente`);
     indexOfNoStock === -1 && changeStockAndPurchase();
@@ -156,13 +153,10 @@ function payCart() {
         });
         finishPurchaseAndSetLocalstorage();
     }
-    
     function showError(string) {
-        
         errorSpan.innerText = string;
         errorSpan.style.visibility = 'visible';
     }
-    
     function finishPurchaseAndSetLocalstorage() {
         purchasedItems.forEach((item) => {
             myProducts.forEach( (el, i) => item.name === el.name && myProducts.splice(i, 1)) && (i--) ;
