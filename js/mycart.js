@@ -81,7 +81,7 @@ function sumAmountsAndShow(index) {
 
 const myproductsForm = document.getElementById('myproducts-form');
 const checkboxes = document.querySelectorAll('.table-ctn input[type="checkbox"]');
-let purchasedItems = [];
+let purchasedItems;
 const errorSpan = document.getElementById('show-error');
 
 checkboxes.forEach( item => 
@@ -92,6 +92,7 @@ checkboxes.forEach( item =>
     } ) 
 );
 myproductsForm.addEventListener('submit', (e) => submitPurchase(e));
+purchaseVerifyForm.addEventListener('submit', (e) => verifyPasswordToPay(e));
 
 function cleanSpanError() {
     errorSpan.removeAttribute('style');
@@ -100,82 +101,71 @@ function cleanSpanError() {
 }
 function submitPurchase(e) {
     e.preventDefault();
+    purchaseVerifyForm.password.value && (purchaseVerifyForm.password.value = '');
     purchaseVerifyForm.style.display = 'flex';
+    console.log(purchaseVerifyForm);
     setTimeout( () => purchaseVerifyForm.classList.replace('hidden', 'show-purchase-form') , 500);
-    purchaseVerifyForm.addEventListener('submit', (e) => verifyPasswordToPay(e));
-
-    function verifyPasswordToPay(e) {
-        e.preventDefault();
-        let password = purchaseVerifyForm.password.value;
-        password === '' && showError('Completá el campo.');
-        password !== '' && password !== user.password && showError('Dato incorrecto!');
-        password === user.password && payCart() && cleanSpanError();
-        purchaseVerifyForm.password.addEventListener('input', () => cleanSpanError());
+    purchaseVerifyForm.password.addEventListener('input', () => cleanSpanError());
+}
+function verifyPasswordToPay(e) {
+    e.preventDefault();
+    let password = purchaseVerifyForm.password.value;
+    password === '' && showError('Completá el campo.');
+    password !== '' && password !== user.password && showError('Dato incorrecto!');
+    password === user.password && payCart() && cleanSpanError();
+    return console.log(password);
+}
+function showError(string) {
+    purchaseVerifyForm.password.style.outline = '2px red solid';
+    errorSpan.innerText = string;
+    errorSpan.style.visibility = 'visible';
+    return
+}
+    
+function payCart() {
+    let verifyStockArray = [];
+    console.log(purchasedItems);
+    verifyStockArray = purchasedItems.map( item => {
+        return productos.todoslosproductos.map( (el, i) => {
+            return (item.name === el.name && item.type === 'vela' && item.size === 'medium' && item.quantity > el.content.medium.stock) || 
+            (item.name === el.name && item.type === 'vela' && item.size === 'big' && item.quantity > el.content.big.stock) ||
+            (item.name === el.name && item.type !== 'vela' && item.quantity > el.stock);
+        });
+    });
+      
+    let indexOfNoStock = verifyStockArray.findIndex((item ) => item.some( item => item === true ) === true);
+   
+    indexOfNoStock >= 0 && showError(`El item ${purchasedItems[indexOfNoStock].name} ${purchasedItems[indexOfNoStock].size} no tiene stock suficiente`);
+    indexOfNoStock === -1 && changeStockAndPurchase();
+    
+    function changeStockAndPurchase() {
+        productos.todoslosproductos.forEach( item => {
+            purchasedItems.forEach( el => {
+                if (el.name === item.name) {
+                    if (el.type === 'vela') {
+                        el.size === 'medium' && (item.content.medium.stock -= el.quantity);
+                        el.size === 'big' && (item.content.big.stock -= el.quantity);
+                    } else {
+                        item.stock -= el.quantity;
+                    }
+                }
+            })
+        });
+        finishPurchaseAndSetLocalstorage();
     }
     function showError(string) {
-        purchaseVerifyForm.password.style.outline = '2px red solid';
         errorSpan.innerText = string;
         errorSpan.style.visibility = 'visible';
     }
-    
-    /* Mejorar el aviso y el comportamiento si algo no tiene stock en la cantidad pedida */
-    function payCart() {
-        let verifyStockArray = [];
-        console.log(purchasedItems);
-        verifyStockArray = purchasedItems.map( item => {
-            return productos.todoslosproductos.map( (el, i) => {
-                return (item.name === el.name && item.type === 'vela' && item.size === 'medium' && item.quantity > el.content.medium.stock) || 
-                (item.name === el.name && item.type === 'vela' && item.size === 'big' && item.quantity > el.content.big.stock) ||
-                (item.name === el.name && item.type !== 'vela' && item.quantity > el.stock);
-            });
+    function finishPurchaseAndSetLocalstorage() {
+        purchasedItems.forEach((item) => {
+            myProducts.forEach( (el, i) => item.name === el.name && myProducts.splice(i, 1)) && (i--) ;
         });
-        console.log(verifyStockArray);
-     
-        let indexOfNoStock = verifyStockArray.findIndex((item ) => item.some( item => item === true ) === true);
-        console.log(indexOfNoStock);
-
-        /* if (indexOfNoStock >= 0 && showError) {
-            return showError(`El item ${purchasedItems[indexOfNoStock].name} ${purchasedItems[indexOfNoStock].size} no tiene stock suficiente`);
-        }
-        if (indexOfNoStock === -1) {
-            return changeStockAndPurchase();
-        } */
-        indexOfNoStock >= 0 && showError(`El item ${purchasedItems[indexOfNoStock].name} ${purchasedItems[indexOfNoStock].size} no tiene stock suficiente`);
-        indexOfNoStock === -1 && changeStockAndPurchase();
-        
-
-        function changeStockAndPurchase() {
-            productos.todoslosproductos.forEach( item => {
-                purchasedItems.forEach( el => {
-                    if (el.name === item.name) {
-                        if (el.type === 'vela') {
-                            el.size === 'medium' && (item.content.medium.stock -= el.quantity);
-                            el.size === 'big' && (item.content.big.stock -= el.quantity);
-                        } else {
-                            item.stock -= el.quantity;
-                        }
-                    }
-                })
-            });
-            finishPurchaseAndSetLocalstorage();
-        }
-        
-        function showError(string) {
-            
-            errorSpan.innerText = string;
-            errorSpan.style.visibility = 'visible';
-        }
-        
-        function finishPurchaseAndSetLocalstorage() {
-            purchasedItems.forEach((item) => {
-                myProducts.forEach( (el, i) => item.name === el.name && myProducts.splice(i, 1)) && (i--) ;
-            });
-            user.myproducts = myProducts;
-            users.forEach( (item, index) => item.email === user.email && (users.splice(index, 1, user)));
-            localStorage.setItem('productos', JSON.stringify(productos));
-            setUserAndUsers(users, user);
-            alert(`${user.name}, gracias por su compra!`);
-            //location.href = './mycart.html';
-        }
+        user.myproducts = myProducts;
+        users.forEach( (item, index) => item.email === user.email && (users.splice(index, 1, user)));
+        localStorage.setItem('productos', JSON.stringify(productos));
+        setUserAndUsers(users, user);
+        alert(`${user.name}, gracias por su compra!`);
+        location.href = './mycart.html';
     }
 }
