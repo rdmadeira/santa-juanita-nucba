@@ -5,6 +5,7 @@ const frutosDelBosque = new Velas ('Frutos del Bosque', 'Vela de soja natural. C
 const vainillaPrimavera = new Velas ('Vainilla Primavera', 'Vela de soja natural. Color blanco. Esencia de vainilla. Recipiente en vidrio. Encender por primera vez por un periodo de al menos 1hora. Recortar periódicamente la mecha. No usar mas de 5-6 horas seguidas. Duración 55-60 Hs', '../../assets/productos/velas/vainilla.jpg', 'vela soja aromatica vainilla color blanco', 'blanco', 800);
 
 const lavanda =  new Velas ('Lavanda', 'Vela de soja natural. Color violeta. Esencia de lavanda. Recipiente en papel reciclado. Encender por primera vez por un periodo de al menos 1 hora. Recortar periódicamente la mecha. No usar mas de 5-6 horas seguidas. Duración 40-45 Hs', '../../assets/productos/velas/lavanda.jpg', 'vela soja aromatica lavanda color violeta', 'violeta', 700);
+lavanda.setPromo(true);
 
 const maracuya =  new Velas ('Maracuya', 'Vela de soja natural. Color amarillo. Esencia de lavanda. Recipiente en vidrio. Encender por primera vez por un periodo de al menos 1hora. Recortar periódicamente la mecha. No usar mas de 5-6 horas seguidas. Duración 40-45 Hs', '../../assets/productos/velas/maracuya.jpg', 'vela soja aromatica maracuya color amarillo', 'amarillo', 700);
 
