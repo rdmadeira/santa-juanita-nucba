@@ -1,6 +1,5 @@
-var sectionContacto = document.getElementById('contactos');
-let liContactlEl = document.getElementById('click-contacto');
-liContactlEl.addEventListener('click', showContactoInputs);
+//var sectionContacto = document.getElementById('contactos');
+document.getElementById('click-contacto').addEventListener('click', showContactoInputs);
 function showContactoInputs() {
     var sectionContacto = document.getElementById('contactos');
     var visibility = sectionContacto.style.visibility; 

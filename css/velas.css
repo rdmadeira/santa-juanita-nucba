@@ -82,7 +82,7 @@ h3.txt-velas-soja {
 }
 p.txt-velas-soja {
     text-indent: 20px;
-    line-height: 4vh;
+    line-height: 45px;
     font-size: 1.2em;
     text-align: justify;
     margin-bottom: 1vw;
@@ -104,6 +104,7 @@ ul.txt-velas-soja {
 ul.txt-velas-soja li {
     width: 80%;
     margin: 2vh auto;
+    line-height: 45px;
 }
 
 /* ********************* Key Frames **************************************** */
@@ -151,7 +152,7 @@ ul.txt-velas-soja li {
 @media screen and (min-width:521px) and (max-width:1080px) {
     ul.txt-velas-soja li {
         width: 95%;
-        font-size: 1.7em;
+        font-size: 1.3em;
 
     }
     .ctn-img-vela {

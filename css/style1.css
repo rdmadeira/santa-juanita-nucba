@@ -282,13 +282,15 @@ li.submenu-li-productos:hover>a {
     row-gap: 2.5vw;
 }
 .span-volver {
-    position: absolute;
+    position: relative;
     top: 0px;
     left: 0px;
     padding: 2px 7px 7px;
     border-radius: 5%;
     border: solid 1px var(--twilight-lavender);
     color: var(--twilight-lavender);
+    font-size: max(min(2.5vw,21px),17px);
+    width: 25%;
 }
 .span-volver:hover {
     cursor: pointer;
@@ -659,7 +661,7 @@ div#text-sec0 {
 }
 section.section>div {
     width: 50%;
-    height: fit-content;
+    /* height: fit-content; */
     color: var(--mulberry);
     z-index: 0;
 }
