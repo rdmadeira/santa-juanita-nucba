@@ -159,7 +159,7 @@ div.menu h1 {
 }
 @media all and (max-width: 520px) {
     #products-ctn {
-        gap: 50px;
+        gap: 20vw;
     }
     .product-ctn {
         width: 90%;

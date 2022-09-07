@@ -1,4 +1,4 @@
-import {setUserAndUsers, loadProducts, addToCart, findProducts} from "./functions.mjs";
+import {setUserAndUsers, loadProducts, addToCart} from "./functions.mjs";
 let user = JSON.parse(localStorage.getItem('userJuanita'));
 let users = JSON.parse(localStorage.getItem('usersJuanita'));
 
@@ -36,3 +36,14 @@ window.addEventListener('load', () => asignProductos());
 const searchForm = document.getElementById('search-products-form');
 searchForm.addEventListener('submit', (e) => findProducts(e));
 
+async function findProducts(e) {
+    e.preventDefault();
+    const productos = await getProductos();
+    const loadCtn = document.getElementById('loading-ctn');
+    const searchString = searchForm.search.value;
+    const productsCtnEl =  document.getElementById('products-ctn');
+    let findedProducts = productos.todoslosproductos.filter( item => item.keywords.includes(searchString) );
+    productsCtnEl.innerHTML = '';
+    loadCtn.removeAttribute('style');
+    setTimeout( ()=> loadProducts(findedProducts), 1000 );
+}

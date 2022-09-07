@@ -199,7 +199,7 @@ ul.submenu-productos {
     opacity: 0;
     position: absolute;
     width: max-content;
-    top: 39px;
+    top: 48px;
     left: -10px;  
     z-index: 3;  
 }
@@ -611,7 +611,7 @@ textarea {
 section.section {
     width: 50%;
     display: flex;
-    /* height: max-content; */
+    height: 530px;
     border: 1px solid var(--mulberry);
     box-shadow: 0px 3px 25px #88446aa6;
     
@@ -629,7 +629,7 @@ section.section {
 }
 div#img-sec0 {
     width: 40%;
-    min-width: 300px;
+    min-width: 410px;
 }
 div#text-sec0 {
     display: flex;
@@ -646,9 +646,9 @@ div#text-sec0 {
 #text-sec0 div {
     background: #f3e8ee54;
     position: absolute;
-    width: 65vw;
+    width: 50vw;
     right: 0px;
-    padding: 0 2vw 0 0;
+    padding: 0 2vw 0 30px;
     color: var(--twilight-lavender);
 }
 #text-sec0 h2, .sec-text h2 {
@@ -659,19 +659,27 @@ div#text-sec0 {
     /* font-size: min(max(2.7vw,14px),18px); */
     font-size: var(--step-0);
 }
-section.section>div {
-    width: 50%;
-    /* height: fit-content; */
-    color: var(--mulberry);
+.img-sec {
+    width: 100%;
     z-index: 0;
+    position: relative;
 }
 
 div.sec-text {
+    color: var(--snow);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     padding: 3vw;
     row-gap: 2vw;
+    width: 20%;
+    position: absolute;
+    z-index: 1;
+    background-color: #88446a4d;
+    height: 530px;
+}
+.sec3, .sec4 {
+   justify-content: end;
 }
 section.section div img {
     object-fit: cover;
@@ -894,9 +902,18 @@ div.footer-logo img {
     section.section {
         width: 100%;
     }
-    section.section> div {
-        width: 50%;
-        height: 49vw;
+    .img-sec {
+        width: 100%;
+        /* height: 49vw; */
+    }
+    div.sec-text {
+        width: 38%;
+    }
+    .sec2 {
+        justify-content: end;
+    }
+    .sec3 {
+        justify-content: start;
     }
     .sec0 {
         max-height: fit-content;
@@ -1028,18 +1045,29 @@ div.footer-logo img {
     section.section {
         width: 100%;
     }
-    section.section> div {
+    .img-sec {
+        width: 100%;
+        height: 500px;
+    }
+    div.sec-text {
         width: 50%;
-        height: 68vw;
+        height: 500px;
     }
     #img-sec3, #text-sec2 {
         order: 1;
     }   
     section.section div img {
-        width: 85%;
+        width: 100%;
+        
     }
     #img-sec2, #img-sec4 {
         text-align: end;
+    }
+    .sec2 {
+        justify-content: end;
+    }
+    .sec3 {
+        justify-content: start;
     }
     .div-contacto {
         flex-direction: column;
@@ -1056,5 +1084,9 @@ div.footer-logo img {
         width: 100%;
         min-width: unset;
     }
-
+    .reduced-logo {
+        width: 18vw;
+        min-width: unset;
+        transition: 0.5s ease all;
+    }
 }

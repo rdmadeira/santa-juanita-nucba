@@ -1,6 +1,5 @@
 let user = JSON.parse(localStorage.getItem('userJuanita'));
 let users = JSON.parse(localStorage.getItem('usersJuanita'));
-import { getProductos } from "./fetchget.mjs";
 
 export function setUserAndUsers(users, user) {
     localStorage.setItem('usersJuanita', JSON.stringify(users));
@@ -93,15 +92,4 @@ export function addToCart(obj, index) {
     setUserAndUsers(users, user);
     
 }
-export async function findProducts(e) {
-    e.preventDefault();
-    const searchForm = document.getElementById('search-products-form');
-    const productos = await getProductos();
-    const loadCtn = document.getElementById('loading-ctn');
-    const searchString = searchForm.search.value;
-    const productsCtnEl =  document.getElementById('products-ctn');
-    let findedProducts = productos.todoslosproductos.filter( item => item.keywords.includes(searchString) );
-    productsCtnEl.innerHTML = '';
-    loadCtn.removeAttribute('style');
-    setTimeout( ()=> loadProducts(findedProducts), 1000 );
-}
+ 
