@@ -1,37 +1,21 @@
-var sectionContacto = document.getElementById('contactos');
-let liContactlEl = document.getElementById('click-contacto');
-liContactlEl.addEventListener('click', showContactoInputs);
+const sectionContacto = document.getElementById('contactos');
+const liContactlEl = document.getElementById('click-contacto');
+liContactlEl.addEventListener('click', () => showContactoInputs());
 function showContactoInputs() {
-    var sectionContacto = document.getElementById('contactos');
-    var visibility = sectionContacto.style.visibility; 
-    if (visibility =='hidden') {
-        sectionContacto.style.visibility = 'visible';
-        sectionContacto.style.opacity = 1;
-        sectionContacto.style.width = '100%';
-        sectionContacto.style.maxWidth = '850px';
-        
-    } else if (visibility == 'visible') {
-        sectionContacto.style.visibility = 'hidden';
-        sectionContacto.style.opacity = 0;
-        sectionContacto.style.width = 0;
-        }
-    else {
-        sectionContacto.style.visibility = 'visible';
-        sectionContacto.style.opacity = 1;
-        sectionContacto.style.width = '100%';
-        sectionContacto.style.maxWidth = '850px';
-    }    
+    sectionContacto.classList.contains('show-contacts-visible') ? 
+        sectionContacto.classList.remove('show-contacts-visible')
+        : sectionContacto.classList.add('show-contacts-visible');
 }
+
 document.getElementById('btn-cerrar').addEventListener('click', cambioCss)
 function cambioCss() {
-    sectionContacto.style.visibility = 'hidden';
-    sectionContacto.style.opacity = 0;
-    sectionContacto.style.width = 0;
+    sectionContacto.classList.remove('show-contacts-visible');
 }
+
 document.getElementById('menu-vertical').addEventListener('click', showMenuMobile);   
 function showMenuMobile() {
-    var menuVertical = document.getElementById('ul-menu');
-    var visibility2 = menuVertical.style.visibility;
+    const menuVertical = document.getElementById('ul-menu');
+    const visibility2 = menuVertical.style.visibility;
     var iconoOculto = document.getElementById('menu-vertical');
     var display = iconoOculto.style.display;
     

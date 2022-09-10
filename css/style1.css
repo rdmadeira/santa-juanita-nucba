@@ -408,6 +408,12 @@ li.submenu-li-productos:hover>a {
     opacity: 1;
     transition: all 0.5s ease-in;
 }
+.show-contacts-visible {
+    visibility: visible !important; 
+    opacity: 1 !important;
+    width: 100% !important;
+    /* max-width: 850px !important; */
+}
 
 @keyframes fade-out-right {
     0% {
@@ -525,7 +531,6 @@ li.submenu-li-productos:hover>a {
   
 .div-contacto {
     width: 0px;
-    max-width: 830px;
     overflow: hidden;
     height: max-content;
     padding: 0 0 2vw 0;
@@ -533,6 +538,7 @@ li.submenu-li-productos:hover>a {
     position: absolute;
     right: 0px;
     display: flex;
+    justify-content: center;
     visibility: hidden;
     opacity: 0;
     transition: all 0.8s 0.2s ease;
@@ -558,6 +564,8 @@ div.logo-contacto {
     row-gap: 5vw;
     width: 35%;
     padding: 30px;
+    max-width: 166px;
+
 }
 div.logo-contacto img{
     max-width: 100%;
@@ -576,7 +584,7 @@ div.form {
 }
 .form form {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     row-gap: 1vw;
 }
 .form h2 {
@@ -588,10 +596,12 @@ input.input-contacto {
     border-radius: 5px;
     border: none;
     padding: 1vw 1vw;
+    width: 65%;
 }
 textarea {
     border-radius: 5px;
     padding: 1vw 1vw;
+    width: 65%;
 }
 #buton-enviar {
     padding: 6% 30%;
@@ -989,6 +999,7 @@ div.footer-logo img {
         transition: all 0.5s ease;
         opacity: 1;
     } */
+    
     li.menu, li.submenu-li-productos {
         color: var(--twilight-lavender);
         background:var(--queen-pink);
@@ -1008,6 +1019,19 @@ div.footer-logo img {
     }
     li.submenu-li-productos {
         padding: 3vw;
+    }
+    div.form {
+        width: 100%;
+        margin: 0;
+    }
+    textarea {
+        width: 90%;
+    }
+    .show-contacts-visible {
+        height: 70vh;
+    }
+    input.input-contacto {
+        width: 90%;
     }
     section.sec0 {
         flex-flow: column nowrap;
@@ -1076,9 +1100,16 @@ div.footer-logo img {
     }
     .form form {
         row-gap: 2vw;
+        justify-content: center;
     }
     div.logo-contacto {
         row-gap: 1vw;
+        width: 53%;
+        max-width: unset;
+    }
+    #buton-enviar {
+        width: 250px;
+        font-size: 1.5em;
     }
     .redes {
         width: 100%;

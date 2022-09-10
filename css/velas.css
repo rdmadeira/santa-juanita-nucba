@@ -47,7 +47,7 @@
     width: 80%;
     margin-bottom: 5vw;
     padding: 3vw 0vw 5vw 0;
-    row-gap: 5vw;
+    row-gap: 2vw;
 }
 .ctn-img-vela {
     width: 50%;
@@ -70,20 +70,20 @@
 }
 h2.txt-velas-soja {
     text-align: center;
-    margin: 2vw 0;
-    font-size: 2.5em;
+    margin: 2vw 0 0;
+    font-size: min(2.5em, 32px);
     text-shadow: 2px 2px 3px var(--opera-mauve);
 }
 h3.txt-velas-soja {
     text-align: center;
     margin: 4vw 0 2vw;
-    font-size: 2em;
+    font-size: min(2em, 28px);
     text-shadow: 2px 2px 3px var(--opera-mauve);
 }
 p.txt-velas-soja {
     text-indent: 20px;
-    line-height: 45px;
-    font-size: 1.2em;
+    line-height: 40px;
+    font-size: min(1.2em,22px);
     text-align: justify;
     margin-bottom: 1vw;
 }
