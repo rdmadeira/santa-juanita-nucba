@@ -1,3 +1,5 @@
+import productos from "./products.mjs";
+
 let user = JSON.parse(localStorage.getItem('userJuanita'));
 let users = JSON.parse(localStorage.getItem('usersJuanita'));
 
@@ -98,4 +100,17 @@ const myPromise =  new Promise (( resolve, reject ) => {
 export const getProductos = async () => {
     /* console.log(await myPromise); */
     return await myPromise;
+}
+
+export const searchForm = document.getElementById('search-products-form');
+export async function findProducts(e) {
+    e.preventDefault();
+    const productos = await getProductos();
+    const loadCtn = document.getElementById('loading-ctn');
+    const searchString = searchForm.search.value;
+    const productsCtnEl =  document.getElementById('products-ctn');
+    let findedProducts = productos.todoslosproductos.filter( item => item.keywords.includes(searchString) );
+    productsCtnEl.innerHTML = '';
+    loadCtn.removeAttribute('style');
+    setTimeout( ()=> loadProducts(findedProducts), 1000 );
 }

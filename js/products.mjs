@@ -58,4 +58,6 @@ const bombas = [teVerde, petalasDeRosasBomba];
 let actualStockBombas = [8, 8];
 bombas.forEach( (item, index) => item.setStock = actualStockBombas[index] );
 
-export const productos = new ListaDeProductos ( velas, sales, difusores, bombas );
+const productos = new ListaDeProductos ( velas, sales, difusores, bombas );
+
+export default productos;

@@ -1,4 +1,4 @@
-import {productos} from './products.mjs'
+import productos from './products.mjs'
 
 if (!localStorage.getItem('productos')) {
     window.addEventListener('load', ()=>sendData(productos));
