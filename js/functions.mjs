@@ -90,6 +90,12 @@ export function addToCart(obj, index) {
     users.forEach( (item, index) => item.email === user.email && (users[index] = user) );
     users.splice( users.indexOf(user.email) , 1, user);
     setUserAndUsers(users, user);
-    
 }
- 
+
+const myPromise =  new Promise (( resolve, reject ) => {
+    setTimeout( () => resolve( JSON.parse(localStorage.getItem('productos')) ), 2000);
+});
+export const getProductos = async () => {
+    /* console.log(await myPromise); */
+    return await myPromise;
+}

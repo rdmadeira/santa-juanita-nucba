@@ -280,6 +280,7 @@ li.submenu-li-productos:hover>a {
     justify-content: center;
     padding: 3vw;
     row-gap: 2.5vw;
+    /* position: absolute; */
 }
 .span-volver {
     position: relative;
@@ -365,7 +366,7 @@ li.submenu-li-productos:hover>a {
 }
 .bounce-in-top {
     display: flex;
-	-webkit-animation: bounce-in-top 1.1s both;
+	-webkit-animation: bounce-in-top 1.1s both !important;
 	        animation: bounce-in-top 1.1s both;
 }
 .slide-out-top {
