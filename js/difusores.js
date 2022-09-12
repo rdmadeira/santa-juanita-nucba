@@ -5,9 +5,9 @@ import {showLogin} from './login-register.js'
 
 window.addEventListener('load', async () => {
     const productos = await getProductos();
-    const velas = productos.velas;
-    console.log(velas);
-    await productos && loadProducts(velas);
+    const difusores = productos.difusores;
+    console.log(difusores);
+    await productos && loadProducts(difusores);
     const addToCartButtonsEls = document.querySelectorAll('.product-ctn button');
     addToCartButtonsEls.forEach( item => item.addEventListener('click', ()=> {
         showLogin();

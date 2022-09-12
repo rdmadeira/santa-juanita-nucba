@@ -1,4 +1,4 @@
-import {setUserAndUsers, loadProducts, addToCart} from "./functions.mjs";
+import {setUserAndUsers, loadProducts, addToCart, getProductos} from "./functions.mjs";
 let user = JSON.parse(localStorage.getItem('userJuanita'));
 let users = JSON.parse(localStorage.getItem('usersJuanita'));
 
@@ -7,36 +7,26 @@ let users = JSON.parse(localStorage.getItem('usersJuanita'));
 const myPromise =  new Promise (( resolve, reject ) => {
     setTimeout( () => resolve( JSON.parse(localStorage.getItem('productos')) ), 2000);
 });
-export const getProductos = async () => {
+const getProductos = async () => {
     /* console.log(await myPromise); */
     return await myPromise;
 }
 
 /* *********************** Load Products ****************************** */
 
-
-
-async function asignProductos () {
+window.addEventListener('load', async () => {
     const productos = await getProductos();
-    await productos && loadProducts(productos.todoslosproductos);    
-}
-window.addEventListener('load', () => asignProductos());
-
-
-
-
-/* *************************** Funcion addToCart  ******************************************* */
-
-
-
-
+    const velas = productos.velas;
+    console.log(velas);
+    await productos && loadProducts(productos.todoslosproductos);
+});
 
 /* ********************************************* Search Products *************************************** */
 
 const searchForm = document.getElementById('search-products-form');
-searchForm.addEventListener('submit', (e) => findProducts(e));
+searchForm && searchForm.addEventListener('submit', (e) => findProducts(e));
 
-async function findProducts(e) {
+export async function findProducts(e) {
     e.preventDefault();
     const productos = await getProductos();
     const loadCtn = document.getElementById('loading-ctn');

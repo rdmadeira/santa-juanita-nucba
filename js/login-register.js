@@ -4,7 +4,7 @@ import { setUserAndUsers } from "./functions.mjs";
 const signUpInEl = document.getElementById('sign-up-in');
 signUpInEl.addEventListener('click', () => showLogin());    
 
-function showLogin () {
+export function showLogin () {
     let sectionLogin = document.getElementById('section-login');
     if (sectionLogin.classList.contains('none-display')) {
         sectionLogin.classList.replace('none-display', 'bounce-in-top');
