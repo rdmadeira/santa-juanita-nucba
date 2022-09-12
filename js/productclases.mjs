@@ -8,7 +8,7 @@ class Products {
         
         this.promo = false;
     }
-    set setPromo (boolean) {
+    setPromo (boolean) {
         this.promo = boolean;
         if (boolean === true) {
             this.price *= 0.75;
