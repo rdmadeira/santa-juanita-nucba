@@ -30,9 +30,56 @@
     display: flex;
     justify-content: end;
     column-gap: 50px;
+    font-weight: 700;
+    border-top: 1px solid var(--opera-mauve);
+    font-size: var(--step-1);
+}
+#total-result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #buttons-ctn {
     display: flex;
     justify-content: end;
     column-gap: 50px;
+}
+button {
+    background-color: var(--twilight-lavender);
+    color: var(--snow);
+    padding: 5px 25px;
+    border: none;
+}
+#reset-cart-btn {
+    background-color: var(--snow);
+    color: var(--twilight-lavender);
+}
+button:hover, #reset-cart-btn:hover {
+    cursor: pointer;
+    background-color: var(--opera-mauve);
+}
+#purchase-verify-user-form {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+    position: relative;
+    padding: 3vw 5vw;
+    transition: 0.5s all ease-in;
+}
+#purchase-verify-user-form input[type = "password"] {
+    padding: 5px 8px;
+}
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+.show-purchase-form {
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s all ease-in;
+}
+#show-error {
+    visibility: hidden;
 }

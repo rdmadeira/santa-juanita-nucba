@@ -157,3 +157,12 @@ div.menu h1 {
         order: 3;
     }
 }
+@media all and (max-width: 520px) {
+    #products-ctn {
+        gap: 20vw;
+    }
+    .product-ctn {
+        width: 90%;
+        gap: 10px;
+    }
+}
