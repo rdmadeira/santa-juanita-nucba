@@ -91,8 +91,9 @@
     font-weight: 400;
 }
 body {
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     font-size: var(--step-0);
+    width: 100vw;
 }
 ul {
     list-style: none;
@@ -146,6 +147,9 @@ div.menu-vertical {
     padding: 2vw;
     border: 3px solid var(--opera-mauve);
     border-radius: 21px;
+}
+div.menu-vertical:hover {
+    cursor: pointer;
 }
 div.menu-vertical img {
     width: 100%;
@@ -681,7 +685,7 @@ div.sec-text {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 3vw;
+    padding: 5vw;
     row-gap: 2vw;
     width: 20%;
     position: absolute;
@@ -711,6 +715,7 @@ section.section div img {
     border: none;
     box-shadow: -1px -1px 10px #f3e8eefa, 3px 3px 10px #88446a7a;
     transition: all 0.2s ease-in;
+    font-size: var(--step--1);
 }
 .sec-text a {
     width: max-content;
@@ -851,25 +856,25 @@ div.footer-logo img {
 	}
   }
   .fade-in-blur-first {
-    animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 2.4s backwards;
-    -webkit-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 2.4s backwards;
+    animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s backwards;
+    -webkit-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s backwards;
     -moz-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.8s backwards;
-    -o-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 2.4s backwards;
-    -ms-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 2.4s backwards;
+    -o-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s backwards;
+    -ms-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s backwards;
   }
   .fade-in-blur-second {
-    animation: fadeIn linear 2.7s 1.5s backwards;
-    -webkit-animation: fadeIn linear 2.7s 1.5s backwards;
-    -moz-animation: fadeIn linear 2.7s 1.5s backwards;
-    -o-animation: fadeIn linear 2.7s 1.5s backwards;
-    -ms-animation: fadeIn linear 2.7s 1.5s backwards;
+    animation: fadeIn linear 1.2s 1.2s backwards;
+    -webkit-animation: fadeIn linear 1.2s 1.2s backwards;
+    -moz-animation: fadeIn linear 1.2s 1.2s backwards;
+    -o-animation: fadeIn linear 1.2s 1.2s backwards;
+    -ms-animation: fadeIn linear 1.2s 1.2s backwards;
   }
   .fade-in-blur-third {
-    animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 3s  2.4s both;
-    -webkit-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 3s 2.5s both;
-    -moz-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 3s   2.4s both;
-    -o-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 3s   2.4s both;
-    -ms-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 3s  2.4s both;
+    animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s  2.4s both;
+    -webkit-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s 2.5s both;
+    -moz-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s   2.4s both;
+    -o-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s   2.4s both;
+    -ms-animation: fadeIn cubic-bezier(0, 0, 0.33, 1.01) 1.2s  2.4s both;
   }
   .shake {
       animation: shake infinite 17s 9s ease-in-out alternate ;
@@ -898,10 +903,10 @@ div.footer-logo img {
 
 /* ******************************************* Media Queries ************************************** */
 @media screen and (min-width:521px) {
-    ul.menu {
+    /* ul.menu {
         visibility: visible !important;
         opacity: 1!important;
-    }
+    } */
 }
 @media screen and (min-width:521px) and (max-width:1080px) and (orientation:portrait) {
     div.menu {
@@ -968,7 +973,7 @@ div.footer-logo img {
 }
 
 /* ************************************** */
-@media screen and (max-width:520px) {
+@media screen and (max-width:578px) {
     nav.nav-header {
         flex-direction: column;
         justify-content: center;
@@ -1041,8 +1046,10 @@ div.footer-logo img {
         max-height: fit-content;
     }
     div#img-sec0 {
-        width: 86%;
+        width: 100%;
         justify-self: center;
+        min-width: unset;
+        height: 68vh;
     }
     div#text-sec0 {
         width: 100%;
@@ -1069,14 +1076,18 @@ div.footer-logo img {
     }
     section.section {
         width: 100%;
+        height: unset;
+        margin-bottom: 30px;
     }
     .img-sec {
         width: 100%;
         height: 500px;
     }
     div.sec-text {
-        width: 50%;
-        height: 500px;
+        width: 100%;
+        height: fit-content;
+        align-self: flex-end;
+        row-gap: 25px;
     }
     #img-sec3, #text-sec2 {
         order: 1;
@@ -1093,6 +1104,19 @@ div.footer-logo img {
     }
     .sec3 {
         justify-content: start;
+    }
+    .sec-text a {
+        align-self: flex-end;
+    }
+    .sec-text button {
+        font-size: var(--step-2);
+        padding: 10px;
+    }
+    #text-sec0 h2, .sec-text h2 {
+        font-size: var(--step-3);
+    }
+    #text-sec0 p, .sec-text p {
+        font-size: var(--step-3);
     }
     .div-contacto {
         flex-direction: column;

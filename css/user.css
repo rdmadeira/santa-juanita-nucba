@@ -165,4 +165,14 @@ div.menu h1 {
         width: 90%;
         gap: 10px;
     }
+    #shopcart-img-ctn {
+        width: 25%;
+        /* height: 25%; */
+        align-self: center;
+        position: relative;
+        transition: 0.6s ease all;
+        z-index: 3;
+        top: 0;
+        right: 0;
+    }
 }

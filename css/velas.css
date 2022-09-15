@@ -161,3 +161,8 @@ ul.txt-velas-soja li {
     }
     
 }
+@media screen and (max-width:521px) {
+    .ctn-texto {
+        width: 95%;
+    }
+}
